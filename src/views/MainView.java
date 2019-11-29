@@ -198,10 +198,9 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_mnEmployeeActionPerformed
 
     private void mnJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnJobActionPerformed
-
-//        JobsView jobsView = new JobsView();
-//        jobsView.show();
-//        dskHR.add(jobsView);
+        JobsView jobsView = new JobsView();
+        jobsView.show();
+        dskHR.add(jobsView);
     }//GEN-LAST:event_mnJobActionPerformed
 
     private void mnLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLocationActionPerformed

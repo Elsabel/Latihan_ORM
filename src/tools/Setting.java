@@ -5,7 +5,8 @@
  */
 package tools;
 
-
+import controllers.JobController;
+import controllers.RegionController;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -26,10 +27,17 @@ public class Setting {
             lbl.setText("");
         }
     }
-public void  checkAlphabet(java.awt.event.KeyEvent b){
-        if (Character.isDigit(b.getKeyChar())) {
-            b.consume();
-            JOptionPane.showMessageDialog(null, "In the Number column you can only enter the character letters");
+    
+    public void checkNumber2(KeyEvent evt){
+        if (Character.isAlphabetic(evt.getKeyChar())) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Masukkan Angka");
+        }
+    }
+public void  checkAlphabet(KeyEvent evt){
+        if (Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Masukkan Huruf");
         }
 }
     public void checkLength(JTextField txt, int size, KeyEvent evt, JLabel lbl) {
@@ -63,5 +71,5 @@ public void  checkAlphabet(java.awt.event.KeyEvent b){
 //        }
 //
 //    }
-
+  
 }

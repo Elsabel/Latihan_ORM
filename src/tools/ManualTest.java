@@ -70,13 +70,13 @@ public class ManualTest {
 //        }
 
         //DELETE USE CONTROLLER
-        RegionController regionController=new RegionController();
-        System.out.println(regionController.delete("13"));
-        
-        List<Region> rd=new RegionController().getAll();
-        for (Region region3 : rd) {
-            System.out.println(region3.getRegionId()+" "+region3.getRegionName());
-        }
-        
+//        RegionController regionController=new RegionController();
+//        System.out.println(regionController.delete("13"));
+//        
+//        List<Region> rd=new RegionController().getAll();
+//        for (Region region3 : rd) {
+//            System.out.println(region3.getRegionId()+" "+region3.getRegionName());
+//        }
+//        
 }
 }

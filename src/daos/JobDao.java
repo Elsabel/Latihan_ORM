@@ -7,7 +7,7 @@ package daos;
 
 import java.util.ArrayList;
 import java.util.List;
-import models.Region;
+import models.Job;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,22 +17,22 @@ import tools.HibernateUtil;
  *
  * @author Elsa
  */
-public class RegionDao {
+public class JobDao {
 
     private SessionFactory sessionFactory;
     private Session session;
     private Transaction transaction;
 
-    public RegionDao() {
+    public JobDao() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    public boolean createRegion(Region region) {
+    public boolean createJob(Job job) {
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            this.session.save(region);
+            this.session.save(job);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -46,12 +46,12 @@ public class RegionDao {
         return false;
     }
 
-    public boolean deleteRegion(Region region) {
+    public boolean deleteJob(Job job) {
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            this.session.delete(region);
+            this.session.delete(job);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -65,12 +65,12 @@ public class RegionDao {
         return false;
     }
 
-    public boolean updateRegion(Region region) {
+    public boolean updateJob(Job job) {
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            this.session.update(region);
+            this.session.update(job);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -84,13 +84,13 @@ public class RegionDao {
         return false;
     }
 
-    public List<Region> selectRegions() {
-        List<Region> regions = new ArrayList<>();
+    public List<Job> selectJob() {
+        List<Job> jobs = new ArrayList<>();
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region").list();
+            jobs = session.createQuery("from Job").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,15 +100,15 @@ public class RegionDao {
         } finally {
             session.close();
         }
-        return regions;
+        return jobs;
     }
 
-    public Region selectById(long id) {
-        Region region = new Region();
+    public Job selectById(String id) {
+        Job job = new Job();
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            region=(Region) session.createQuery("from Region where region_id="+id).uniqueResult();
+            job=(Job) session.createQuery("from Job where jobId="+id).uniqueResult();
             transaction.commit();
 
         } catch (Exception e) {
@@ -120,15 +120,15 @@ public class RegionDao {
         finally{
             session.close();
         }
-        return region;
+        return job;
     }
-    public List<Region> searchRegions(String key){
-          List<Region> regions = new ArrayList<>();
+    public List<Job> searchJob(String key){
+          List<Job> jobs = new ArrayList<>();
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region where regionId like '%"+key+"%' or regionName like '%"+key+"%'").list();
+            jobs = session.createQuery("From Job where jobId like '%"+key+"%' or jobTitle like '%"+key+"%' or minSalary like '%"+key+"%' or maxSalary like '%"+key+"%'").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class RegionDao {
         } finally {
             session.close();
         }
-        return regions;
+        return jobs;
     }
     
 

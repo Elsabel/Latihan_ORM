@@ -53,6 +53,22 @@ public class Job implements Serializable {
     public Job() {
     }
 
+    public Job(String jobId, String jobTitle, Integer minSalary, Integer maxSalary, List<Employee> employeeList) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+        this.employeeList = employeeList;
+    }
+
+    public Job(String jobId, String jobTitle, Integer minSalary, Integer maxSalary) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+    }
+
+    
     public Job(String jobId) {
         this.jobId = jobId;
     }
