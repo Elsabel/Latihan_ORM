@@ -51,6 +51,11 @@ public class JobController {
         return this.dao.selectById(id);
                
     }
+    
+    public Job selectByName(String name){
+        return this.dao.selectByName(name);     
+    }
+    
     public List<Job> search(String key){
         return this.dao.searchJob(key);
     }
