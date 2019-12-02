@@ -142,7 +142,23 @@ public class JobDao {
     }
 
     public Job selectByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Job job = new Job();
+        try {
+            this.session = this.sessionFactory.openSession();
+            this.transaction = this.session.beginTransaction();
+            job=(Job) session.createQuery("from Job where jobTitle="+name).uniqueResult();
+            transaction.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction!=null) {
+                transaction.rollback();
+            }
+        }
+        finally{
+            session.close();
+        }
+        return job;
     }
 
 }
