@@ -49,6 +49,9 @@ public class CountryController {
     public Country selectById(String id) {
         return this.dao.selectById(id);
     }
+    public Country selectByName(String name) {
+        return this.dao.selectByName(name);
+    }
     
     public List<Country> search(String key) {
         return this.dao.searchRegions(key);

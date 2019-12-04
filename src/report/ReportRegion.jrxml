@@ -17,12 +17,8 @@
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="79" backcolor="#006666" uuid="f9976313-3580-4eee-a387-609cb96f0197"/>
 			</rectangle>
-			<image>
-				<reportElement x="0" y="0" width="71" height="60" uuid="06703a2f-e93a-49c8-b2fc-7988ee699520"/>
-				<imageExpression><![CDATA["C:\\Users\\ASUS\\Documents\\NetBeansProjects\\LatihanOJDB\\LatihanOJDB\\src\\gambar\\logo_java.png"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement x="78" y="12" width="275" height="67" forecolor="#FFFFFF" uuid="09a08a1a-6bfe-4bd1-b416-7f9a511ba17b"/>
+				<reportElement x="17" y="12" width="275" height="67" forecolor="#FFFFFF" uuid="09a08a1a-6bfe-4bd1-b416-7f9a511ba17b"/>
 				<textElement>
 					<font size="48"/>
 				</textElement>
@@ -71,7 +67,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[   $F{regionId}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{regionId}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="112" y="0" width="442" height="20" uuid="3688f9c9-b344-4fe6-bbe1-90a6b09f2535"/>
@@ -83,7 +79,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[   $F{regionName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{regionName}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

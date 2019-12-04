@@ -104,28 +104,45 @@ public class CountryDao {
         return countrys;
     }
 
-//    public Country selectById(String id) {
-//        Country country = new Country();
-//        try {
-//            this.session = this.sessionFactory.openSession();
-//            this.transaction = this.session.beginTransaction();
-//            country= (Country) session.createQuery("from Country where countryId= "+id).uniqueResult();
-//            transaction.commit();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            if (transaction!=null) {
-//                transaction.rollback();
-//            }
-//        }
-//        finally{
-//            session.close();
-//        }
-//        return country;
+    public Country selectById(String id) {
+        Country country = new Country();
+        try {
+            this.session = this.sessionFactory.openSession();
+            this.transaction = this.session.beginTransaction();
+            country= (Country) session.createQuery("from Country where countryId= "+id).uniqueResult();
+            transaction.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction!=null) {
+                transaction.rollback();
+            }
+        }
+        finally{
+            session.close();
+        }
+        return country;
+    }
+//    public Country selectById(String id){
+//        Session s = this.openSession();
+//        return (Country) s.load(Country.class, id);
 //    }
-    public Country selectById(String id){
-        Session s = this.openSession();
-        return (Country) s.load(Country.class, id);
+      public Country selectByName(String name) {
+        Country country = new Country();
+        this.session = this.sessionFactory.openSession();
+        this.transaction = this.session.beginTransaction();
+        try {
+            country = (Country) session.createQuery("from Country where countryName = '" + name + "' ").uniqueResult();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return country;
     }
             
     public List<Country> searchRegions(String key){

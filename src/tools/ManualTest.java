@@ -10,6 +10,7 @@ import controllers.RegionController;
 import daos.RegionDao;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.JOptionPane;
 import models.Country;
 import models.Region;
 import org.hibernate.Session;
@@ -84,7 +85,7 @@ public class ManualTest {
 //        System.out.println(countryController.create("SD", "Meikarta", "1"));
 //        System.out.println(controller.delete("SD"));
         
-
+        System.out.println(countryController.selectByName("Kuwait").getCountryId());
 //        List<Country> rd = new CountryController().getAll();
 //        for (Country country : rd) {
 //            System.out.println(country.getCountryId() + " " + country.getCountryName() + " " + country.getRegionId().getRegionName());
