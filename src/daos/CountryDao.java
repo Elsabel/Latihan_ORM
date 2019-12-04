@@ -123,10 +123,10 @@ public class CountryDao {
         }
         return country;
     }
-//    public Country selectById(String id){
-//        Session s = this.openSession();
-//        return (Country) s.load(Country.class, id);
-//    }
+    public Country selectById1(String id){
+        Session s = this.openSession();
+        return (Country) s.load(Country.class, id);
+    }
       public Country selectByName(String name) {
         Country country = new Country();
         this.session = this.sessionFactory.openSession();

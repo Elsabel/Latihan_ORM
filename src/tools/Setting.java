@@ -36,7 +36,7 @@ public class Setting {
     public void checkAlphabet(java.awt.event.KeyEvent b) {
         if (Character.isDigit(b.getKeyChar())) {
             b.consume();
-            JOptionPane.showMessageDialog(null, "In the Number column you can only enter the character letters");
+            JOptionPane.showMessageDialog(null, "Tidak Boleh Angka");
         }
     }
 
@@ -47,6 +47,12 @@ public class Setting {
         } else {
             lbl.setText("");
         }
+    }
+    public void checkLength(JTextField txt, int size, KeyEvent evt) {
+        if (txt.getText().length() >= size) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null,"Tidak Bisa Lebih "+size+" Karakter");
+        } 
     }
 
     public void checkNull(JTextField txt, KeyEvent evt, JLabel lbl) {

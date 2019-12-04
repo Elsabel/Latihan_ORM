@@ -30,7 +30,6 @@ public class MainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu3 = new javax.swing.JMenu();
         dskHR = new javax.swing.JDesktopPane();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -47,14 +46,13 @@ public class MainView extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         mnReportLocation = new javax.swing.JMenuItem();
-
-        jMenu3.setText("jMenu3");
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HR SYSTEM");
+        getContentPane().setLayout(new java.awt.CardLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/main_bg.jpg"))); // NOI18N
-        jLabel2.setText("jLabel2");
 
         dskHR.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -62,12 +60,18 @@ public class MainView extends javax.swing.JFrame {
         dskHR.setLayout(dskHRLayout);
         dskHRLayout.setHorizontalGroup(
             dskHRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 951, Short.MAX_VALUE)
+            .addGroup(dskHRLayout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         dskHRLayout.setVerticalGroup(
             dskHRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 685, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dskHRLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2))
         );
+
+        getContentPane().add(dskHR, "card2");
 
         jMenuBar1.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -171,20 +175,18 @@ public class MainView extends javax.swing.JFrame {
         });
         jMenu2.add(mnReportLocation);
 
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("Country");
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jCheckBoxMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dskHR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dskHR)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -265,6 +267,13 @@ public class MainView extends javax.swing.JFrame {
         dskHR.add(reportView);
     }//GEN-LAST:event_mnReportLocationActionPerformed
 
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        ReportView reportView = new ReportView("Country");
+        reportView.show();
+        dskHR.add(reportView);
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -303,10 +312,10 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dskHR;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

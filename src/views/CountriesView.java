@@ -9,6 +9,7 @@ import controllers.CountryController;
 import controllers.RegionController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import tools.Setting;
 
 /**
  *
@@ -72,10 +73,27 @@ public class CountriesView extends javax.swing.JInternalFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tidMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tidMousePressed(evt);
+            }
+        });
+        tid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tidKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tidKeyTyped(evt);
+            }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Name");
+
+        tname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tnameKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Region");
@@ -301,6 +319,23 @@ public class CountriesView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbRegionActionPerformed
 
+    private void tidMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tidMousePressed
+      
+    }//GEN-LAST:event_tidMousePressed
+
+    private void tidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tidKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tidKeyPressed
+
+    private void tidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tidKeyTyped
+     new Setting().checkAlphabet(evt);
+     new Setting().checkLength(tid, 2, evt);
+    }//GEN-LAST:event_tidKeyTyped
+
+    private void tnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tnameKeyTyped
+         new Setting().checkAlphabet(evt);
+    }//GEN-LAST:event_tnameKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_add1;
@@ -374,5 +409,6 @@ public class CountriesView extends javax.swing.JInternalFrame {
         tbl_countries.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbl_countries.setModel(tableModel);
     }
+    
 
 }

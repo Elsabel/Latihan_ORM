@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Region;
+import tools.Setting;
 //import tools.Setting;
 
 /**
@@ -118,7 +119,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAdd.setText("Add/Save");
+        btnAdd.setText("Save");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -205,7 +206,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
                         .addGap(15, 15, 15)
                         .addComponent(btnSearch))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                    .addComponent(pnlRegion, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                    .addComponent(pnlRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 382, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -256,12 +257,15 @@ public class RegionsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblRegionMousePressed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+     if (JOptionPane.showConfirmDialog(this, "Delete Data?", "Confirmation",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
         RegionController regDelete = new RegionController();
         String id = txtId.getText();
         JOptionPane.showMessageDialog(this, regDelete.delete(id));
         bindingTabel();
         txtId.setEnabled(true);
+        reset();
+     }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -281,7 +285,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
     
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-      //  new Setting().checkLength(txtName, 5, evt, lbl4);
+     new Setting().checkAlphabet(evt);
     }//GEN-LAST:event_txtNameKeyTyped
     private void bindingTabel() {
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -302,7 +306,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
     }
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
         // TODO add your handling code here:
-       // new Setting().checkNumber(evt, lbl3);
+        new Setting().checkNumber2(evt);
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void txtIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyPressed

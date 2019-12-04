@@ -245,17 +245,28 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
         String locid = cmbLocation.getSelectedItem().toString();
         String[] getLocationId = locid.split(" - ");
 
-//        String cekId = departmentController.selectById(id).getDepartmentId().toString();
-        if (!txtId.isEnabled()) {
-//            JOptionPane.showMessageDialog(this, "update");
-            JOptionPane.showMessageDialog(this, departmentController.update(id, name, getManagerId[0], getLocationId[0]));
-            txtId.setEnabled(true);
+        if (id.equals("")) {
+            JOptionPane.showMessageDialog(this, "ID cannot be empty !");
+        } else if (name.equals("")) {
+            JOptionPane.showMessageDialog(this, "Department Name cannot be empty !");
+        } else if (manid.equals("")) {
+            JOptionPane.showMessageDialog(this, "Manager cannot be empty !");
+        } else if (locid.equals("")) {
+            JOptionPane.showMessageDialog(this, "City cannot be empty !");
         } else {
+            if (!txtId.isEnabled()) {
+//            JOptionPane.showMessageDialog(this, "update");
+                JOptionPane.showMessageDialog(this, departmentController.update(id, name, getManagerId[0], getLocationId[0]));
+                reset();
+                txtId.setEnabled(true);
+            } else {
 //            JOptionPane.showMessageDialog(this, "Save");
-            JOptionPane.showMessageDialog(this, departmentController.create(id, name, getManagerId[0], getLocationId[0]));
-            txtId.setEnabled(true);
+                JOptionPane.showMessageDialog(this, departmentController.create(id, name, getManagerId[0], getLocationId[0]));
+                reset();
+                txtId.setEnabled(true);
+            }
         }
-        reset();
+
         bindingTabel();
     }//GEN-LAST:event_btnSaveActionPerformed
 

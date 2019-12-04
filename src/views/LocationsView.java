@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Country;
 import models.Location;
+import tools.Setting;
 
 /**
  *
@@ -286,22 +287,9 @@ public class LocationsView extends javax.swing.JInternalFrame {
         } else {
             txtState.setText((String) tblLocation.getValueAt(row, 4));
         }
-//        cmbCountry.setSelectedItem((String) tblLocation.getValueAt(row, 5).toString());
         String a = (String) tblLocation.getValueAt(row, 5);
         cmbCountry.setSelectedItem((String) countryController.selectByName(a).getCountryId() + " - " + a);
         txtId.setEnabled(false);
-
-//        if (tblLocation.getValueAt(row, 5) == "-") {
-//            cmbCountry.setSelectedIndex(0);
-//        } else {
-////            String[] splitt = tblLocation.getValueAt(row, 5).toString().split(" - ");
-////            String data = splitt[1];
-////            cmbCountry.setSelectedItem(data);
-//
-//            cmbCountry.setSelectedItem((String) tblLocation.getValueAt(row, 5).toString());
-//
-//        }
-//        txtCountryid.setText((String) tblLocation.getValueAt(row, 5));
 
     }//GEN-LAST:event_tblLocationMousePressed
 
@@ -310,43 +298,38 @@ public class LocationsView extends javax.swing.JInternalFrame {
         String dataCountry = cmbCountry.getSelectedItem().toString(); //ambil data dari combobox
         String[] splitCountry = dataCountry.split(" - "); //pecah data combobox
         String getIdCountry = splitCountry[0]; //ambil idcountry dari pecahan combobox pertama
+        String id = txtId.getText();
+        String street = txtStreet.getText();
+        String postal = txtPostal.getText();
+        String city = txtCity.getText();
+        int country = cmbCountry.getSelectedIndex();
 
-//        String idTxt = txtId.getText(); //ambil data txtbox txtId
-//        BigDecimal idTxtt = new BigDecimal(idTxt); //ubah data string idtxt jadi bigdecimal
-//        BigDecimal idLoc = locationController.selectById(idTxt).getLocationId(); //selectbyid
-//        String locFix = idLoc.toString();
-//        JOptionPane.showConfirmDialog(this, getIdCountry);
-//        if (idLoc.equals(idTxtt)) {
-//            JOptionPane.showMessageDialog(this, "id nya sama, id loc" + idLoc + " id text" + idTxt);
-//        } else if (!idLoc.equals(idTxtt)) {
-//            JOptionPane.showMessageDialog(this, "id nya beda" + getIdCountry);
-//        }
-        if (!txtId.isEnabled()) {
-            JOptionPane.showMessageDialog(this, locationController.update(txtId.getText(),
-                    txtStreet.getText(), txtPostal.getText(), txtCity.getText(),
-                    txtState.getText(), getIdCountry));
-            reset();
-            txtId.setEnabled(true);
+        if (id.equals("")) {
+            JOptionPane.showMessageDialog(this, "ID cannot be empty !");
+        } else if (street.equals("")) {
+            JOptionPane.showMessageDialog(this, "Street Address cannot be empty !");
+        } else if (postal.equals("")) {
+            JOptionPane.showMessageDialog(this, "Postal Code cannot be empty !");
+        } else if (city.equals("")) {
+            JOptionPane.showMessageDialog(this, "City cannot be empty !");
+        } else if (country == 0) {
+            JOptionPane.showMessageDialog(this, "Country cannot be empty !");
         } else {
-            JOptionPane.showMessageDialog(this, locationController.create(txtId.getText(),
-                    txtStreet.getText(), txtPostal.getText(), txtCity.getText(),
-                    txtState.getText(), getIdCountry));
-            reset();
-            txtId.setEnabled(true);
+            if (!txtId.isEnabled()) {
+                JOptionPane.showMessageDialog(this, locationController.update(txtId.getText(),
+                        txtStreet.getText(), txtPostal.getText(), txtCity.getText(),
+                        txtState.getText(), getIdCountry));
+                reset();
+                txtId.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(this, locationController.create(txtId.getText(),
+                        txtStreet.getText(), txtPostal.getText(), txtCity.getText(),
+                        txtState.getText(), getIdCountry));
+                reset();
+                txtId.setEnabled(true);
+            }
         }
-//        if (idLoc.equals(idTxtt)) {
-//            JOptionPane.showMessageDialog(this, locationController.update(txtId.getText(), 
-//                    txtStreet.getText(), txtPostal.getText(), txtCity.getText(), 
-//                    txtState.getText(), getIdCountry));
-//            reset();
-//            txtId.setEnabled(true);
-//        } else {
-//            JOptionPane.showMessageDialog(this, locationController.create(txtId.getText(), 
-//                    txtStreet.getText(), txtPostal.getText(), txtCity.getText(), 
-//                    txtState.getText(), getIdCountry));
-//            reset();
-//            txtId.setEnabled(true);
-//        }
+
         bindingTabel();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -367,7 +350,7 @@ public class LocationsView extends javax.swing.JInternalFrame {
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
         // TODO add your handling code here:
-        filterAngka(evt);
+        new Setting().checkNumber2(evt);
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
@@ -426,18 +409,12 @@ public class LocationsView extends javax.swing.JInternalFrame {
             o[1] = loc.getStreetAddress();
             o[2] = loc.getPostalCode();
             o[3] = loc.getCity();
-//            o[4] = loc.getState();
             if (loc.getStateProvince() == null) {
                 o[4] = "-";
             } else {
                 o[4] = loc.getStateProvince();
             }
             o[5] = loc.getCountryId().getCountryName();
-//            if (loc.getCountry().getId() == null) {
-//                o[5] = "-";
-//            } else {
-//                o[5] = loc.getCountry().getName();
-//            }
 
             tableModel.addRow(o);
         }
@@ -480,13 +457,6 @@ public class LocationsView extends javax.swing.JInternalFrame {
     public void comboBoxCountry() {
         for (Country country : countryController.getAll()) {
             cmbCountry.addItem(country.getCountryId() + " - " + country.getCountryName());
-        }
-    }
-
-    public void filterAngka(KeyEvent a) {
-        if (Character.isAlphabetic(a.getKeyChar())) {
-            a.consume();
-            JOptionPane.showMessageDialog(null, "Just Allowed Number Type!");
         }
     }
 

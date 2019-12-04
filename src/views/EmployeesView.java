@@ -119,6 +119,11 @@ public class EmployeesView extends javax.swing.JInternalFrame {
                 txtIdMouseClicked(evt);
             }
         });
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
         txtId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtIdKeyPressed(evt);
@@ -663,6 +668,10 @@ public class EmployeesView extends javax.swing.JInternalFrame {
     private void txtPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPhoneActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
     void cmbManager() {
         for (models.Employee e : employeeController.getAll()) {
             cmbManager.addItem(e.getFirstName()+" "+e.getLastName());

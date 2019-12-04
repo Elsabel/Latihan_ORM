@@ -16,6 +16,7 @@ import tools.Setting;
  * @author USER
  */
 public class JobsView extends javax.swing.JInternalFrame {
+
     Job job = new Job();
     JobController jobController = new JobController();
 
@@ -317,14 +318,24 @@ public class JobsView extends javax.swing.JInternalFrame {
         String title = txttitle.getText();
         String min = txtmin.getText();
         String max = txtmax.getText();
-        if (!txtid.isEnabled())  {
-            JOptionPane.showMessageDialog(this, jobController.update(id, title, Integer.parseInt(min), Integer.parseInt(max)));
-            hapus();
-            bindingTabel();
+        if (id.equals("")) {
+            JOptionPane.showMessageDialog(this, "Job ID cannot be empty !");
+        } else if (title.equals("")) {
+            JOptionPane.showMessageDialog(this, "Job Title cannot be empty !");
+        } else if (min.equals("")) {
+            JOptionPane.showMessageDialog(this, "Min Salary cannot be empty !");
+        } else if (max.equals("")) {
+            JOptionPane.showMessageDialog(this, "Max Salary cannot be empty !");
         } else {
-            JOptionPane.showMessageDialog(this, jobController.create(id, title,Integer.parseInt(min), Integer.parseInt(max)));
-            hapus();
-            bindingTabel();
+            if (!txtid.isEnabled()) {
+                JOptionPane.showMessageDialog(this, jobController.update(id, title, Integer.parseInt(min), Integer.parseInt(max)));
+                hapus();
+                bindingTabel();
+            } else {
+                JOptionPane.showMessageDialog(this, jobController.create(id, title, Integer.parseInt(min), Integer.parseInt(max)));
+                hapus();
+                bindingTabel();
+            }
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
