@@ -30,6 +30,7 @@ public class MainView extends javax.swing.JFrame {
 
         jMenu3 = new javax.swing.JMenu();
         dskHR = new javax.swing.JDesktopPane();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnRegion = new javax.swing.JMenuItem();
@@ -50,16 +51,23 @@ public class MainView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HR SYSTEM");
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/main_bg.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+
+        dskHR.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout dskHRLayout = new javax.swing.GroupLayout(dskHR);
         dskHR.setLayout(dskHRLayout);
         dskHRLayout.setHorizontalGroup(
             dskHRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 959, Short.MAX_VALUE)
         );
         dskHRLayout.setVerticalGroup(
             dskHRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jMenuBar1.setBackground(new java.awt.Color(51, 0, 51));
 
         jMenu1.setText("File");
 
@@ -173,7 +181,7 @@ public class MainView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dskHR)
+            .addComponent(dskHR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -293,6 +301,7 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dskHR;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

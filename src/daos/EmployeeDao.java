@@ -152,9 +152,9 @@ public class EmployeeDao {
                     + "%' or hireDate like '%" + key
                     + "%' or salary like '%" + key
                     + "%' or commissionPct like '%" + key
-                    + "%' or departmentId like '%" + key
-                    + "%' or managerId like '%" + key
-                    + "%' or jobId like '%" + key + "%'").list();
+                    + "%' or departmentId.departmentName like '%" + key
+                    + "%' or managerId.firstName like '%" + key
+                    + "%' or jobId.jobTitle like '%" + key + "%'").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
