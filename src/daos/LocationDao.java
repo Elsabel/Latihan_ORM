@@ -105,7 +105,7 @@ public class LocationDao {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
-            }
+            } 
         } finally {
             session.close();
         }
