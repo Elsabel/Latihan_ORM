@@ -20,6 +20,7 @@ public class LocationController {
 
     public LocationController() {
         this.locationDao = new LocationDao();
+        
     }
 
     public LocationController(LocationDao locationDao) {
