@@ -448,7 +448,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         if (txtComm.getText()==null) {
             txtComm.setText("0");
         }
-        //txtComm.setText((String) tblEmployee.getValueAt(row, 8).toString());
+        txtComm.setText((String) tblEmployee.getValueAt(row, 8).toString());
         cmbManager.setSelectedItem((String) tblEmployee.getValueAt(row, 9).toString());
         cmbDepartmen.setSelectedItem((String) tblEmployee.getValueAt(row, 10).toString());
         txtId.setEnabled(false);
@@ -508,9 +508,16 @@ public class EmployeesView extends javax.swing.JInternalFrame {
             os[5] = r.getHireDate();
             os[6] = r.getJobId().getJobTitle();
             os[7] = r.getSalary();
-            os[8] = r.getCommissionPct();
+            
+            if (r.getCommissionPct()==null) {
+                os[8] = "-";
+            }
+            else{
+                os[8]=r.getCommissionPct();
+            }          
             os[9] = r.getManagerId().getFirstName()+" "+r.getManagerId().getLastName();
             os[10] = r.getDepartmentId().getDepartmentName();
+            
             
 
             tableModel.addRow(os);
