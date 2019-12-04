@@ -5,10 +5,20 @@
  */
 package tools;
 
+import controllers.DepartmentController;
+import controllers.EmployeeController;
+import controllers.JobController;
 import controllers.RegionController;
+import daos.JobDao;
 import daos.RegionDao;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.List;
+import models.Country;
+import models.Department;
+import models.Employee;
+import models.Job;
+import models.Location;
 import models.Region;
 import org.hibernate.Session;
 
@@ -18,7 +28,7 @@ import org.hibernate.Session;
  */
 public class ManualTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         // System.out.println(HibernateUtil.getSessionFactory());
         //Session session=HibernateUtil.getSessionFactory().openSession();
 
@@ -47,6 +57,16 @@ public class ManualTest {
 //        List<Region> rc=new RegionController().getAll();
 //        for (Region region : rc) {
 //        System.out.println(region.getRegionId()+" "+region.getRegionName());
+//            for (Country country : region.getCountryList()) {
+//                System.out.println("-"+country.getCountryName());
+//                for (Location location : country.getLocationList()) {
+//                    System.out.println("- -"+location.getCity());
+//                    for (Department department : location.getDepartmentList()) {
+//                        System.out.println("++"+department.getDepartmentName());
+//                    }
+//                }
+//            }
+//            
 //        }
 
         //CREATE USE CONTROLLER
@@ -54,11 +74,11 @@ public class ManualTest {
 //        RegionController controller = new RegionController();
 //        System.out.println(controller.create(6, "Meikartaulalala"));
 //        
-        List<Region> rc=new RegionController().getAll();
-        for (Region region1 : rc) {
-            System.out.println(region1.getRegionId()+" "+region1.getRegionName());
-        }
-        
+//        List<Region> rc=new RegionController().getAll();
+//        for (Region region1 : rc) {
+//            System.out.println(region1.getRegionId()+" "+region1.getRegionName());
+//        }
+//        
         //UPDATE USE CONTROLLER
 //        Region region = new Region();
 //        RegionController controller = new RegionController();
@@ -70,13 +90,61 @@ public class ManualTest {
 //        }
 
         //DELETE USE CONTROLLER
-        RegionController regionController=new RegionController();
-        System.out.println(regionController.delete("13"));
+//        RegionController regionController=new RegionController();
+//        System.out.println(regionController.delete("13"));
+//        
+//        List<Region> rd=new RegionController().getAll();
+//        for (Region region3 : rd) {
+//            System.out.println(region3.getRegionId()+" "+region3.getRegionName());
+//        }
+
+        //SELECT EMPLOYEE
+//        List<Employee> rc=new EmployeeController().getAll();
+//        for (Employee employee : rc) {
+//            System.out.println(employee.getEmployeeId()+" "+employee.getFirstName());
+//        }
         
-        List<Region> rd=new RegionController().getAll();
-        for (Region region3 : rd) {
-            System.out.println(region3.getRegionId()+" "+region3.getRegionName());
+        //CREATE EMPLOYEE USE CONTROLLER (masih gagal)
+        //EmployeeController controller = new EmployeeController();
+       //controller.create("4", "huhu", "hehe", "huhe", "1111", "2019-01-13", "700", "0", "100", "PU_MAN", "60");
+      
+       //FUNGSI DELETE
+        ///controller.delete("2");
+        //System.out.println(controller.selectByName("Steven", "King").getJobId().getJobTitle());
+        
+        List<Employee> emp=new EmployeeController().getAll();
+        for (Employee employee1 : emp) {
+            System.out.println(employee1.getEmployeeId()+" "+employee1.getFirstName()+" "+employee1.getDepartmentId().getDepartmentName());
         }
+
+        //SELECT BY JOB USE CONTROLLER 
+//        Job j=new JobController().selectByName("Programmer");
+//        System.out.println(j.getJobId());
+        
+        //SELECT BY NAME OF EMPLOYEE USE CONTROLLER AND RELATIONAL SHOW OF JOB 
+//        Employee e=new EmployeeController().selectByName("Neena");
+//        System.out.println(e.getEmployeeId()+" "
+//                +e.getFirstName()+" "
+//                +e.getJobId().getJobTitle());
+        
+//        Department d=new DepartmentController().selectByName("Administration");
+//        System.out.println(d.getDepartmentId()+" "+d.getDepartmentName()+" "+d.getManagerId().getFirstName());
+        
+//        Job job=new JobController().selectByName("Sales");
+//        System.out.println(job.getJobTitle());
+
+        
+        //SEARCH JOB USE CONTROLLER
+//        List<Job> job=new JobController().searchJob("IT_PROG");
+//           for (Job job1 : job) {
+//               System.out.println(job1.getJobTitle());
+//        }
+
+//        List<Job> jobs=new JobController().getAll();
+//        for (Job job : jobs) {
+//            System.out.println(job.getJobId()+" "+job.getJobTitle());
+//        }
+
         
 }
 }

@@ -51,15 +51,15 @@ public class Employee implements Serializable {
     private Integer employeeId;
     @Column(name = "FIRST_NAME")
     private String firstName;
-    @Basic(optional = false)
+   // @Basic(optional = false)
     @Column(name = "LAST_NAME")
     private String lastName;
-    @Basic(optional = false)
+   // @Basic(optional = false)
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
-    @Basic(optional = false)
+   // @Basic(optional = false)
     @Column(name = "HIRE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date hireDate;
@@ -77,7 +77,7 @@ public class Employee implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee managerId;
     @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Job jobId;
     @OneToMany(mappedBy = "managerId", fetch = FetchType.LAZY)
     private List<Department> departmentList;
@@ -94,6 +94,24 @@ public class Employee implements Serializable {
         this.lastName = lastName;
         this.email = email;
         this.hireDate = hireDate;
+    }
+
+    public Employee(int id, String firstname, String lastname, 
+            String email, String phone, Date sqlStartDate, 
+            BigDecimal salary, BigDecimal commission, Employee employee, 
+            Job job, Department department) {
+        this.employeeId=id;
+        this.firstName=firstname;
+        this.lastName=lastname;
+        this.email=email;
+        this.phoneNumber=phone;
+        this.hireDate=sqlStartDate;
+        this.salary=salary;
+        this.commissionPct=commission;
+        this.managerId=employee;
+        this.jobId=job;
+        this.departmentId=department;
+                
     }
 
     public Integer getEmployeeId() {

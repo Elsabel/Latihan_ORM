@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package daos;
 
 import java.util.ArrayList;
 import java.util.List;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+import models.Employee;
 import models.Region;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -19,22 +15,22 @@ import tools.HibernateUtil;
  *
  * @author Elsa
  */
-public class RegionDao {
+public class EmployeeDao {
 
     private SessionFactory sessionFactory;
     private Session session;
     private Transaction transaction;
 
-    public RegionDao() {
+    public EmployeeDao() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    public boolean createRegion(Region region) {
-
+    public boolean createEmployee(Employee emp) {
+        this.session = this.sessionFactory.openSession();
+        this.transaction = this.session.beginTransaction();
+        
         try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            this.session.save(region);
+            this.session.save(emp);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -48,12 +44,12 @@ public class RegionDao {
         return false;
     }
 
-    public boolean deleteRegion(Region region) {
+    public boolean deleteEmployee(Employee emp) {
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            this.session.delete(region);
+            this.session.delete(emp);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -67,12 +63,12 @@ public class RegionDao {
         return false;
     }
 
-    public boolean updateRegion(Region region) {
+    public boolean updateEmployee(Employee emp) {
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            this.session.update(region);
+            this.session.update(emp);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -86,13 +82,13 @@ public class RegionDao {
         return false;
     }
 
-    public List<Region> selectRegions() {
-        List<Region> regions = new ArrayList<>();
+    public List<Employee> selectEmployee() {
+        List<Employee> employees = new ArrayList<>();
+        this.session = this.sessionFactory.openSession();
+        this.transaction = this.session.beginTransaction();
 
         try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region").list();
+            employees = session.createQuery("from Employee order by 1").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,35 +98,63 @@ public class RegionDao {
         } finally {
             session.close();
         }
-        return regions;
+        return employees;
     }
 
-    public Region selectById(String id) {
-        Region region = new Region();
+    public Employee selectById(long id) {
+        Employee employee = new Employee();
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            region=(Region) session.createQuery("from Region where region_id="+id).uniqueResult();
+            employee = (Employee) session.createQuery("from Employee where employeeId=" + id).uniqueResult();
             transaction.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
-            if (transaction!=null) {
+            if (transaction != null) {
                 transaction.rollback();
             }
-        }
-        finally{
+        } finally {
             session.close();
         }
-        return region;
+        return employee;
     }
-    public List<Region> searchRegions(String key){
-          List<Region> regions = new ArrayList<>();
+     public Employee selectByName(String fName,String lName) {
+        Employee employee = new Employee();
+        try {
+            this.session = this.sessionFactory.openSession();
+            this.transaction = this.session.beginTransaction();
+            employee = (Employee) session.createQuery("from Employee where firstName='" +fName+"' and lastName='"+lName+"'").uniqueResult();
+            transaction.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return employee;
+    }
+
+    public List<Employee> searchEmployees(String key) {
+        List<Employee> employees = new ArrayList<>();
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region where regionId like '%"+key+"%' or regionName like '%"+key+"%'").list();
+            employees = session.createQuery("from Employee where employeeId like '%" + key
+                    + "%' or firstName like '%" + key
+                    + "%' or lastName like '%" + key
+                    + "%' or email like '%" + key
+                    + "%' or phoneNumber like '%" + key
+                    + "%' or hireDate like '%" + key
+                    + "%' or salary like '%" + key
+                    + "%' or commissionPct like '%" + key
+                    + "%' or departmentId like '%" + key
+                    + "%' or managerId like '%" + key
+                    + "%' or jobId like '%" + key + "%'").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,8 +164,7 @@ public class RegionDao {
         } finally {
             session.close();
         }
-        return regions;
+        return employees;
     }
-    
 
 }

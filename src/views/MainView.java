@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package views;
 
 import java.io.File;
@@ -184,17 +180,17 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRegionActionPerformed
-        // TODO add your handling code here:
+
         RegionsView regionsView = new RegionsView();
         regionsView.show();
         dskHR.add(regionsView);
     }//GEN-LAST:event_mnRegionActionPerformed
 
     private void mnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEmployeeActionPerformed
-//
-//        EmployeesView employeesView = new EmployeesView();
-//        employeesView.show();
-//        dskHR.add(employeesView);
+
+        EmployeesView employeesView = new EmployeesView();
+        employeesView.show();
+        dskHR.add(employeesView);
     }//GEN-LAST:event_mnEmployeeActionPerformed
 
     private void mnJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnJobActionPerformed
@@ -234,22 +230,22 @@ public class MainView extends javax.swing.JFrame {
 
     private void mnReportEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReportEmployeeActionPerformed
         // TODO add your handling code here:
-//        ReportView reportView = new ReportView("Employee");
-//        reportView.show();
-//        dskHR.add(reportView);
+        ReportView reportView = new ReportView("Employee");
+        reportView.show();
+        dskHR.add(reportView);
     }//GEN-LAST:event_mnReportEmployeeActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-//        ReportView reportView = new ReportView("Job");
-//        reportView.show();
-//        dskHR.add(reportView);
+        ReportView reportView = new ReportView("Job");
+        reportView.show();
+        dskHR.add(reportView);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-//        ReportView reportView = new ReportView("Department");
-//        reportView.show();
-//        dskHR.add(reportView);
+
+        ReportView reportView = new ReportView("Department");
+        reportView.show();
+        dskHR.add(reportView);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void mnReportLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReportLocationActionPerformed

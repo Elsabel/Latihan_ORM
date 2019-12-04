@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package daos;
 
 import java.util.ArrayList;
 import java.util.List;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+import models.Location;
 import models.Region;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,22 +14,21 @@ import tools.HibernateUtil;
  *
  * @author Elsa
  */
-public class RegionDao {
-
-    private SessionFactory sessionFactory;
+public class LocationDao {
+     private SessionFactory sessionFactory;
     private Session session;
     private Transaction transaction;
 
-    public RegionDao() {
+    public LocationDao() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    public boolean createRegion(Region region) {
+    public boolean createLocation(Location location) {
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            this.session.save(region);
+            this.session.save(location);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -48,12 +42,12 @@ public class RegionDao {
         return false;
     }
 
-    public boolean deleteRegion(Region region) {
+    public boolean deleteLocation(Location location) {
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            this.session.delete(region);
+            this.session.delete(location);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -67,12 +61,12 @@ public class RegionDao {
         return false;
     }
 
-    public boolean updateRegion(Region region) {
+    public boolean updateLocation(Location location) {
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            this.session.update(region);
+            this.session.update(location);
             this.transaction.commit();
             return true;
         } catch (Exception e) {
@@ -86,13 +80,13 @@ public class RegionDao {
         return false;
     }
 
-    public List<Region> selectRegions() {
-        List<Region> regions = new ArrayList<>();
+    public List<Location> selectLocation() {
+        List<Location> list = new ArrayList<>();
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region").list();
+            list = session.createQuery("from Location").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,15 +96,15 @@ public class RegionDao {
         } finally {
             session.close();
         }
-        return regions;
+        return list;
     }
 
-    public Region selectById(String id) {
-        Region region = new Region();
+    public Location selectById(String id) {
+        Location location = new Location();
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            region=(Region) session.createQuery("from Region where region_id="+id).uniqueResult();
+            location =(Location) session.createQuery("from Location where locationId="+id).uniqueResult();
             transaction.commit();
 
         } catch (Exception e) {
@@ -122,15 +116,17 @@ public class RegionDao {
         finally{
             session.close();
         }
-        return region;
+        return location;
     }
-    public List<Region> searchRegions(String key){
-          List<Region> regions = new ArrayList<>();
+    public List<Location> searchRegions(String key){
+          List<Location> locations = new ArrayList<>();
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region where regionId like '%"+key+"%' or regionName like '%"+key+"%'").list();
+            locations = session.createQuery("from Location where locationId like '%"+key
+                    +"%' or streetAddress like '%"+key
+                    +"%' or city like '%"+key+"'%").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,8 +136,7 @@ public class RegionDao {
         } finally {
             session.close();
         }
-        return regions;
+        return locations;
     }
     
-
 }

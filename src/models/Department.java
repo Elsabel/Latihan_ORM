@@ -63,6 +63,12 @@ public class Department implements Serializable {
         this.departmentName = departmentName;
     }
 
+    public Department(Short id, String name, Employee employee, Location location) {
+        this.departmentId=id;
+        this.departmentName=name;
+        
+    }
+
     public Short getDepartmentId() {
         return departmentId;
     }
