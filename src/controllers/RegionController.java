@@ -46,8 +46,11 @@ public class RegionController {
     }
     
     public Region selectById(String id){
-        return this.dao.selectById(id);
-               
+        return this.dao.selectById(Integer.parseInt(id));       
+    }
+    
+    public Region selectByname(String name){
+        return this.dao.selectByName(name);     
     }
     public List<Region> search(String key){
         return this.dao.searchRegions(key);

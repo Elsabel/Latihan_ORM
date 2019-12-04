@@ -1,31 +1,35 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package daos;
 
 import java.util.ArrayList;
 import java.util.List;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import models.Country;
-import models.Employee;
-import models.Region;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import tools.HibernateUtil;
+
 /**
  *
- * @author Elsa
+ * @author ASUS
  */
 public class CountryDao {
     private SessionFactory sessionFactory;
-    private Session session;
     private Transaction transaction;
-
+    private Session session;
+    
+    static SessionFactory sf = HibernateUtil.getSessionFactory();
+    public Session openSession(){
+        return sf.openSession();
+    }
     public CountryDao() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
-
-    public boolean createCountry(Country country) {
+     public boolean createCountry(Country country) {
 
         try {
             this.session = this.sessionFactory.openSession();
@@ -82,13 +86,12 @@ public class CountryDao {
         return false;
     }
 
-    public List<Country> selectCountrys() {
+    public List<Country> selectCountries() {
         List<Country> countrys = new ArrayList<>();
-
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            countrys = session.createQuery("from Country").list();
+            countrys = session.createQuery("from Country order by 1").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,12 +104,12 @@ public class CountryDao {
         return countrys;
     }
 
-    public Country selectById(long id) {
+    public Country selectById(String id) {
         Country country = new Country();
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            country=(Country) session.createQuery("from Country where region_id="+id).uniqueResult();
+            country= (Country) session.createQuery("from Country where countryId= "+id).uniqueResult();
             transaction.commit();
 
         } catch (Exception e) {
@@ -120,34 +123,35 @@ public class CountryDao {
         }
         return country;
     }
-    
-     public Country selectByName(String name) {
+//    public Country selectById(String id){
+//        Session s = this.openSession();
+//        return (Country) s.load(Country.class, id);
+//    }
+      public Country selectByName(String name) {
         Country country = new Country();
+        this.session = this.sessionFactory.openSession();
+        this.transaction = this.session.beginTransaction();
         try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            country=(Country) session.createQuery("from Country where countryName='"+name+"'").uniqueResult();
+            country = (Country) session.createQuery("from Country where countryName = '" + name + "' ").uniqueResult();
             transaction.commit();
-
         } catch (Exception e) {
             e.printStackTrace();
-            if (transaction!=null) {
+            if (transaction != null) {
                 transaction.rollback();
             }
-        }
-        finally{
+        } finally {
             session.close();
         }
         return country;
     }
-    
-    public List<Country> searchCountry(String key){
+            
+    public List<Country> searchRegions(String key){
           List<Country> countrys = new ArrayList<>();
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            countrys = session.createQuery("from Country where countryId like '%"+key+"%' or countryName like '%"+key+"%'").list();
+            countrys = session.createQuery("from Country where countryId like '%"+key+"%' OR countryName like '%"+key+"%' OR regionId.regionName like '%"+key+"%' ").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,4 +163,5 @@ public class CountryDao {
         }
         return countrys;
     }
+    
 }

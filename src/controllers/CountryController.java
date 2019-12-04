@@ -7,8 +7,8 @@ package controllers;
 
 import daos.CountryDao;
 import java.math.BigDecimal;
-import models.Country;
 import java.util.List;
+import models.Country;
 import models.Region;
 
 /**
@@ -17,43 +17,43 @@ import models.Region;
  */
 public class CountryController {
 
-    private CountryDao countryDao;
+    private CountryDao dao;
 
     public CountryController() {
-        this.countryDao = new CountryDao();
+        this.dao = new CountryDao();
     }
 
-    public CountryController(CountryDao countryDao) {
-        this.countryDao = countryDao;
+    public CountryController(CountryDao dao) {
+        this.dao = dao;
     }
 
-    public String create(String name, String region_id,String id) {
-        return countryDao.createCountry(new Country(name, new Region(BigDecimal.valueOf(Long.parseLong(region_id))), id))
-                ? "Failed to Create Country" : "Success to Create Country";
+    public String create(String id, String name, String regionId) {
+        return this.dao.createCountry(new Country(id, name, new Region(new BigDecimal(regionId))))
+                ? "Success to Create Region" : "Failed to Create Region";
     }
 
-    public String update( String name, String region_id,String id) {
-        return countryDao.updateCountry(new Country(name, new Region (BigDecimal.valueOf(Long.parseLong(region_id))), id))
-                ? "Failed to Update Country" : "Success to Update Country";
+    public String update(String id, String name, String regionId) {
+        return this.dao.updateCountry(new Country(id, name, new Region(new BigDecimal(regionId))))
+                ? "Success to Update Region" : "Failed to Update Region";
     }
 
     public String delete(String id) {
-        return countryDao.deleteCountry(new Country(id)) ?
-                 "Failed to Delete Data" : "Success to Delete Data";
+        return this.dao.deleteCountry(new Country(id))
+                ? "Success to Delete Region" : "Failed to Delete Region";
     }
 
     public List<Country> getAll() {
-        return countryDao.selectCountrys();
-    }
-     public Country selectById(String id){
-        return this.countryDao.selectById(Long.parseLong(id));
-    }
-    public List<Country> search(String key){
-        return this.countryDao.searchCountry(key);
-    }
-    
-    public Country selectByName(String name){
-        return this.countryDao.selectByName(name);
+        return this.dao.selectCountries();
     }
 
+    public Country selectById(String id) {
+        return this.dao.selectById(id);
+    }
+    public Country selectByName(String name) {
+        return this.dao.selectByName(name);
+    }
+    
+    public List<Country> search(String key) {
+        return this.dao.searchRegions(key);
+    }
 }

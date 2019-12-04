@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,11 +21,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.Proxy;
 
 /**
  *
- * @author Elsa
+ * @author Rizky
  */
+//@Proxy(lazy = false)
 @Entity
 @Table(name = "LOCATIONS")
 @XmlRootElement
@@ -41,12 +44,12 @@ public class Location implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "LOCATION_ID")
-    private Short locationId;
+    private BigDecimal locationId;
     @Column(name = "STREET_ADDRESS")
     private String streetAddress;
     @Column(name = "POSTAL_CODE")
     private String postalCode;
-    @Basic(optional = false)
+//    @Basic(optional = false)
     @Column(name = "CITY")
     private String city;
     @Column(name = "STATE_PROVINCE")
@@ -60,23 +63,33 @@ public class Location implements Serializable {
     public Location() {
     }
 
-    public Location(Short locationId) {
+    public Location(BigDecimal locationId) {
         this.locationId = locationId;
     }
 
-    public Location(Short locationId, String city) {
+    public Location(BigDecimal locationId, String city) {
         this.locationId = locationId;
         this.city = city;
     }
 
-    public Short getLocationId() {
+    public BigDecimal getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(Short locationId) {
+    public void setLocationId(BigDecimal locationId) {
         this.locationId = locationId;
     }
 
+    public Location(BigDecimal locationId, String streetAddress, String postalCode, String city, String stateProvince, Country countryId) {
+        this.locationId = locationId;
+        this.streetAddress = streetAddress;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.stateProvince = stateProvince;
+        this.countryId = countryId;
+    }
+    
+    
     public String getStreetAddress() {
         return streetAddress;
     }

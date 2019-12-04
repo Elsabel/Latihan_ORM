@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.Proxy;
 
 /**
  *
@@ -39,7 +40,7 @@ public class Department implements Serializable {
     @Basic(optional = false)
     @Column(name = "DEPARTMENT_ID")
     private Short departmentId;
-    @Basic(optional = false)
+//    @Basic(optional = false)
     @Column(name = "DEPARTMENT_NAME")
     private String departmentName;
     @OneToMany(mappedBy = "departmentId", fetch = FetchType.LAZY)
@@ -54,6 +55,10 @@ public class Department implements Serializable {
     public Department() {
     }
 
+    public Department(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
     public Department(Short departmentId) {
         this.departmentId = departmentId;
     }
@@ -63,10 +68,11 @@ public class Department implements Serializable {
         this.departmentName = departmentName;
     }
 
-    public Department(Short id, String name, Employee employee, Location location) {
-        this.departmentId=id;
-        this.departmentName=name;
-        
+    public Department(Short departmentId, String departmentName, Employee managerId, Location locationId) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.managerId = managerId;
+        this.locationId = locationId;
     }
 
     public Short getDepartmentId() {
@@ -134,5 +140,5 @@ public class Department implements Serializable {
     public String toString() {
         return "models.Department[ departmentId=" + departmentId + " ]";
     }
-    
+
 }

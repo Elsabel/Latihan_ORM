@@ -37,7 +37,7 @@ public class Job implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    //@Basic(optional = false)
+    @Basic(optional = false)
     @Column(name = "JOB_ID")
     private String jobId;
     @Basic(optional = false)
@@ -53,6 +53,22 @@ public class Job implements Serializable {
     public Job() {
     }
 
+    public Job(String jobId, String jobTitle, Integer minSalary, Integer maxSalary, List<Employee> employeeList) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+        this.employeeList = employeeList;
+    }
+
+    public Job(String jobId, String jobTitle, Integer minSalary, Integer maxSalary) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+    }
+
+    
     public Job(String jobId) {
         this.jobId = jobId;
     }
@@ -60,13 +76,6 @@ public class Job implements Serializable {
     public Job(String jobId, String jobTitle) {
         this.jobId = jobId;
         this.jobTitle = jobTitle;
-    }
-
-    public Job(String id, String title, int minSalary, int maxSalary) {
-        this.jobId=id;
-        this.jobTitle=title;
-        this.maxSalary=maxSalary;
-        this.minSalary=minSalary;
     }
 
     public String getJobId() {

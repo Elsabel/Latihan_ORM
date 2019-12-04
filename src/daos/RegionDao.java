@@ -5,6 +5,7 @@
  */
 package daos;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
@@ -92,7 +93,7 @@ public class RegionDao {
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region").list();
+            regions = session.createQuery("from Region order by 1").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,32 +106,50 @@ public class RegionDao {
         return regions;
     }
 
-    public Region selectById(String id) {
+    public Region selectById(long id) {
         Region region = new Region();
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            region=(Region) session.createQuery("from Region where region_id="+id).uniqueResult();
+            region = (Region) session.createQuery("from Region where regionId=" + id).uniqueResult();
             transaction.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
-            if (transaction!=null) {
+            if (transaction != null) {
                 transaction.rollback();
             }
-        }
-        finally{
+        } finally {
             session.close();
         }
         return region;
     }
-    public List<Region> searchRegions(String key){
-          List<Region> regions = new ArrayList<>();
+
+    public Region selectByName(String name) {
+        Region region = new Region();
+        this.session = this.sessionFactory.openSession();
+        this.transaction = this.session.beginTransaction();
+        try {
+            region = (Region) session.createQuery("from Region where regionName = '" + name + "' ").uniqueResult();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return region;
+    }
+
+    public List<Region> searchRegions(String key) {
+        List<Region> regions = new ArrayList<>();
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region where regionId like '%"+key+"%' or regionName like '%"+key+"%'").list();
+            regions = session.createQuery("from Region where regionId like '%" + key + "%' or regionName like '%" + key + "%'").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,6 +161,5 @@ public class RegionDao {
         }
         return regions;
     }
-    
 
 }

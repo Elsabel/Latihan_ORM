@@ -6,13 +6,11 @@
 package controllers;
 
 import daos.DepartmentDao;
-import daos.EmployeeDao;
-import daos.LocationDao;
+import java.math.BigDecimal;
 import java.util.List;
 import models.Department;
 import models.Employee;
 import models.Location;
-import models.Region;
 
 /**
  *
@@ -21,13 +19,9 @@ import models.Region;
 public class DepartmentController {
 
     private DepartmentDao dao;
-    private EmployeeDao edao;
-    private LocationDao ldao;
 
     public DepartmentController() {
         this.dao = new DepartmentDao();
-        this.edao=new EmployeeDao();
-        this.ldao=new LocationDao();
     }
 
     public DepartmentController(DepartmentDao dao) {
@@ -35,38 +29,42 @@ public class DepartmentController {
     }
 
     public String create(String id, String name, String manid, String locid) {
-        return this.dao.createDepartment(new Department(Short.parseShort(id), name, new Employee(Integer.parseInt(manid)), new Location(Short.parseShort(locid))))
+        return this.dao.createDepartment(new Department(new Short(id), name, new Employee(new Integer(manid)), new Location(new BigDecimal(locid))))
                 ? "Success to Create Department" : "Failed to Create Department";
     }
 
     public String update(String id, String name, String manid, String locid) {
-        return this.dao.updateDepartment(new Department(Short.parseShort(id), name, new Employee(Integer.parseInt(manid)), new Location(Short.parseShort(locid))))
+        return this.dao.updateDepartment(new Department(new Short(id), name, new Employee(new Integer(manid)), new Location(new BigDecimal(locid))))
                 ? "Success to Update Department" : "Failed to Update Department";
     }
 
     public String delete(String id) {
-//        return this.dao.deleteDepartment(Integer.parseInt(id))
-        return this.dao.deleteDepartment(new Department(Short.parseShort(id)))
+        return this.dao.deleteDepartment(new Department(new Short(id)))
                 ? "Success to Delete Department" : "Failed to Delete Department";
 
     }
 
     public List<Department> getAll() {
 
-        return this.dao.selectDepartment();
+        return this.dao.selectDepartments();
     }
 
     public Department selectById(String id) {
 
-        return this.dao.selectById(id);
+        return this.dao.selectById(Integer.parseInt(id));
+    }
+    
+    public Department selectByName(String name) {
+        return this.dao.selectByName(name);
+    }
+    
+    public List<Department> selectByNames(String names){
+        return this.dao.selectByNames(names);
     }
 
     public List<Department> search(String key) {
 
-        return this.dao.searchDepartment(key);
+        return this.dao.searchDepartments(key);
     }
 
-    public Department selectByName(String name) {
-        return this.dao.selectByName(name);
-}
 }

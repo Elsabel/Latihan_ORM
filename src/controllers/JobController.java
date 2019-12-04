@@ -6,12 +6,15 @@
 package controllers;
 
 import daos.JobDao;
+import daos.RegionDao;
+import java.math.BigDecimal;
 import java.util.List;
 import models.Job;
+import models.Region;
 
 /**
  *
- * @author USER
+ * @author DELL
  */
 public class JobController {
 
@@ -25,37 +28,36 @@ public class JobController {
         this.dao = dao;
     }
 
-    public String create(String id, String title, String min, String max) {
-        return this.dao.createJob(new Job (id, title, Integer.parseInt(min), Integer.parseInt(max)))
-                ? "Success to Create Jobs\n" : "Failed to Create Jobs\n";
+    public String create(String id, String name, Integer min, Integer max) {
+        return this.dao.createJob(new Job(id, name, min, max)) ? 
+                "Success to Create Job" : "Failed to Create Job";
     }
     
-     public String update(String id, String title, String min, String max){
-        return this.dao.updateJob(new Job (id, title, Integer.parseInt(min), Integer.parseInt(max)))
-             ? "Success to Update Jobs\n" : "Failed to Update Jobs\n";
+    public String update(String id, String name,Integer min, Integer max){
+        return this.dao.updateJob(new Job(id, name, min, max)) ?
+                "Success to Update Job" : "Failed to Update Job";
     }
-    public String delete(String id){
-        return this.dao.deleteJob(new Job(id)) ?
-                "Success to Delete Jobs\n" : "Failed to Delete Jobs\n";
+
+    public String delete(String id, String name, Integer min, Integer max){
+        return this.dao.deleteJob(new Job(id, name, min, max)) ?
+                "Success to Delete Job" : "Failed to Delete Job";
     }
     
-    /**
-     *
-     * @return
-     */
     public List<Job> getAll(){
-     return this.dao.selectJobs();
+     return this.dao.selectJob();
     }
     
     public Job selectById(String id){
         return this.dao.selectById(id);
                
     }
+    
     public Job selectByName(String name){
-        return this.dao.selectByName(name);
-               
+        return this.dao.selectByName(name);     
     }
-    public List<Job> searchJob(String key){
+    
+    public List<Job> search(String key){
         return this.dao.searchJob(key);
     }
+
 }

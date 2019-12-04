@@ -4,6 +4,8 @@ package views;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import models.Country;
+import models.Location;
 
 /**
  *
@@ -60,11 +62,11 @@ public class MainView extends javax.swing.JFrame {
         dskHR.setLayout(dskHRLayout);
         dskHRLayout.setHorizontalGroup(
             dskHRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 959, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 951, Short.MAX_VALUE)
         );
         dskHRLayout.setVerticalGroup(
             dskHRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 685, Short.MAX_VALUE)
         );
 
         jMenuBar1.setBackground(new java.awt.Color(51, 0, 51));
@@ -177,11 +179,11 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dskHR)
+            .addComponent(dskHR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dskHR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(dskHR)
         );
 
         pack();
@@ -203,37 +205,37 @@ public class MainView extends javax.swing.JFrame {
 
     private void mnJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnJobActionPerformed
 
-//        JobsView jobsView = new JobsView();
-//        jobsView.show();
-//        dskHR.add(jobsView);
+        JobsView jobsView = new JobsView();
+        jobsView.show();
+        dskHR.add(jobsView);
     }//GEN-LAST:event_mnJobActionPerformed
 
     private void mnLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLocationActionPerformed
         // TODO add your handling code here:
-//        Locations locations = new Locations();
-//        locations.show();
-//        dskHR.add(locations);
+        LocationsView locations = new LocationsView();
+        locations.show();
+        dskHR.add(locations);
     }//GEN-LAST:event_mnLocationActionPerformed
 
     private void mnDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDepartmentActionPerformed
         // TODO add your handling code here:
-//        DepartmentsView dv = new DepartmentsView();
-//        dv.show();
-//        dskHR.add(dv);
+        DepartmentsView dv = new DepartmentsView();
+        dv.show();
+        dskHR.add(dv);
     }//GEN-LAST:event_mnDepartmentActionPerformed
 
     private void mnCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCountryActionPerformed
         // TODO add your handling code here:
-//        Country country = new Country();
-//        country.show();
-//        dskHR.add(country);
+        CountriesView country = new CountriesView();
+        country.show();
+        dskHR.add(country);
     }//GEN-LAST:event_mnCountryActionPerformed
 
     private void mnReportRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReportRegionActionPerformed
         // TODO add your handling code here:
-//        ReportView reportView = new ReportView("Region");
-//        reportView.show();
-//        dskHR.add(reportView);
+        ReportView reportView = new ReportView("Region");
+        reportView.show();
+        dskHR.add(reportView);
     }//GEN-LAST:event_mnReportRegionActionPerformed
 
     private void mnReportEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReportEmployeeActionPerformed
@@ -258,9 +260,9 @@ public class MainView extends javax.swing.JFrame {
 
     private void mnReportLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReportLocationActionPerformed
             // TODO add your handling code here:
-//        ReportView reportView = new ReportView("Location");
-//        reportView.show();
-//        dskHR.add(reportView);
+        ReportView reportView = new ReportView("Location");
+        reportView.show();
+        dskHR.add(reportView);
     }//GEN-LAST:event_mnReportLocationActionPerformed
 
     /**

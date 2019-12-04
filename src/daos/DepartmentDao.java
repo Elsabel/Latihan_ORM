@@ -1,11 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package daos;
 
 import java.util.ArrayList;
 import java.util.List;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import models.Department;
-import models.Region;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +15,7 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author Elsa
+ * @author HP
  */
 public class DepartmentDao {
 
@@ -82,13 +84,14 @@ public class DepartmentDao {
         return false;
     }
 
-    public List<Department> selectDepartment() {
+    public List<Department> selectDepartments() {
         List<Department> departments = new ArrayList<>();
 
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            departments = session.createQuery("from Department").list();
+            departments = session.createQuery("FROM Department").list();
+//            departments = session.createQuery("select d.departmentId, d.departmentName, e.managerId from Department d left join d.employeeId e").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,30 +104,12 @@ public class DepartmentDao {
         return departments;
     }
 
-    public Department selectById(String id) {
+    public Department selectById(int id) {
         Department department = new Department();
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            department = (Department) session.createQuery("from Department where departmentId=" + id).uniqueResult();
-            transaction.commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return department;
-    }
-    public Department selectByName(String id) {
-        Department department = new Department();
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            department = (Department) session.createQuery("from Department where departmentName='" + id+"'").uniqueResult();
+            department = (Department) session.createQuery("FROM Department WHERE departmentId=" + id).uniqueResult();
             transaction.commit();
 
         } catch (Exception e) {
@@ -138,16 +123,32 @@ public class DepartmentDao {
         return department;
     }
 
-    public List<Department> searchDepartment(String key) {
-        List<Department> departments = new ArrayList<>();
-
+    public Department selectByName(String name) {
+        Department department = new Department();
         try {
             this.session = this.sessionFactory.openSession();
             this.transaction = this.session.beginTransaction();
-            departments = session.createQuery("from Department where departmentId like '%" + key
-                    + "%' or departmentName like '%" + key
-                    + "%' or managerId like '%" + key
-                    + "%' or locationId like '%" + key + "%'").list();
+            department = (Department) session.createQuery("FROM Department WHERE departmentName = '%" + name + "%'").uniqueResult();
+//            department = (Department) session.createQuery("FROM Department WHERE departmentName LIKE '%"+name+"%' "+name).uniqueResult();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return department;
+    }
+
+    public List<Department> selectByNames(String name) {
+        List<Department> departments = new ArrayList<>();
+        try {
+            this.session = this.sessionFactory.openSession();
+            this.transaction = this.session.beginTransaction();
+//            departments = session.createQuery("FROM Department WHERE departmentName = "+name).list();
+            departments = session.createQuery("FROM Department WHERE departmentName LIKE '%" + name + "%'").list();
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,4 +160,29 @@ public class DepartmentDao {
         }
         return departments;
     }
+
+    public List<Department> searchDepartments(String key) {
+        List<Department> departments = new ArrayList<>();
+
+        try {
+            this.session = this.sessionFactory.openSession();
+            this.transaction = this.session.beginTransaction();
+            departments = session.createQuery("FROM Department WHERE departmentId "
+                    + "LIKE '%" + key + "%' OR departmentName "
+                    + "LIKE '%" + key + "%' OR managerId "
+                    + "LIKE '%" + key + "%' OR managerId.firstName "
+                    + "LIKE '%" + key + "%' OR locationId.city "
+                    + "LIKE '%" + key + "%'").list();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return departments;
+    }
+
 }
