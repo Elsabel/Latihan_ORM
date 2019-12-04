@@ -89,7 +89,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
             }
         });
 
-        pnlRegion.setBackground(new java.awt.Color(204, 255, 204));
+        pnlRegion.setBackground(new java.awt.Color(102, 255, 255));
         pnlRegion.setBorder(javax.swing.BorderFactory.createTitledBorder("Region Details"));
         pnlRegion.setForeground(new java.awt.Color(255, 255, 51));
         pnlRegion.setToolTipText("");
@@ -118,7 +118,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAdd.setText("Add/Save");
+        btnAdd.setText("Save");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -205,7 +205,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
                         .addGap(15, 15, 15)
                         .addComponent(btnSearch))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                    .addComponent(pnlRegion, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                    .addComponent(pnlRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 382, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -270,8 +270,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, regionController.update(txtId.getText(), txtName.getText())); 
             reset();
             txtId.setEnabled(true);
-        } else {
-            
+        } else {  
             JOptionPane.showMessageDialog(this, regionController.create(txtId.getText(), txtName.getText()));
             reset();
         }
@@ -295,7 +294,6 @@ public class RegionsView extends javax.swing.JInternalFrame {
             os[0] = r.getRegionId();
             os[1] = r.getRegionName();
             tableModel.addRow(os);
-            
         }
         tblRegion.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblRegion.setModel(tableModel);

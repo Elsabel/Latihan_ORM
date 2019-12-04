@@ -5,10 +5,12 @@
  */
 package tools;
 
+import controllers.CountryController;
 import controllers.RegionController;
 import daos.RegionDao;
 import java.math.BigDecimal;
 import java.util.List;
+import models.Country;
 import models.Region;
 import org.hibernate.Session;
 
@@ -42,23 +44,20 @@ public class ManualTest {
 //            Region r=region;
 //                System.out.println(r.getRegionName());
 //        }
-
         //GET ALL USE CONTROLLER
 //        List<Region> rc=new RegionController().getAll();
 //        for (Region region : rc) {
 //        System.out.println(region.getRegionId()+" "+region.getRegionName());
 //        }
-
         //CREATE USE CONTROLLER
 //        Region region = new Region();
 //        RegionController controller = new RegionController();
 //        System.out.println(controller.create(6, "Meikartaulalala"));
 //        
-        List<Region> rc=new RegionController().getAll();
-        for (Region region1 : rc) {
-            System.out.println(region1.getRegionId()+" "+region1.getRegionName());
-        }
-        
+//        List<Region> rc=new RegionController().getAll();
+//        for (Region region1 : rc) {
+//            System.out.println(region1.getRegionId()+" "+region1.getRegionName());
+//        }
         //UPDATE USE CONTROLLER
 //        Region region = new Region();
 //        RegionController controller = new RegionController();
@@ -68,15 +67,33 @@ public class ManualTest {
 //        for (Region region2 : rs) {
 //            System.out.println(region2.getRegionId()+" "+region2.getRegionName());
 //        }
-
         //DELETE USE CONTROLLER
-        RegionController regionController=new RegionController();
-        System.out.println(regionController.delete("13"));
+//        RegionController regionController=new RegionController();
+//        System.out.println(regionController.delete("13"));
+//        List<Region> rd=new RegionController().getAll();
+//        for (Region region3 : rd) {
+//            System.out.println(region3.getRegionId()+" "+region3.getRegionName());
+//        }
+//        Region region = new Region();
+//        System.out.println(regionController.selectById("1").getRegionName());
+//        CountryController controller = new CountryController();
+//        System.out.println(controller.create("SD", "Meikartaulalala", "1"));
         
-        List<Region> rd=new RegionController().getAll();
-        for (Region region3 : rd) {
-            System.out.println(region3.getRegionId()+" "+region3.getRegionName());
-        }
+//        Region region = new Region();
+        CountryController countryController = new CountryController();
+//        System.out.println(countryController.create("SD", "Meikarta", "1"));
+//        System.out.println(controller.delete("SD"));
         
-}
+
+//        List<Country> rd = new CountryController().getAll();
+//        for (Country country : rd) {
+//            System.out.println(country.getCountryId() + " " + country.getCountryName() + " " + country.getRegionId().getRegionName());
+//        }
+//        System.out.println(countryController.selectById("China").getCountryId());
+////        List<Country> rd = new CountryController().search("KW");
+////        for (Country country : rd) {
+////            System.out.println(country.getCountryId() + " " + country.getCountryName() + " " + country.getRegionId().getRegionName());
+////        }
+
+    }
 }
