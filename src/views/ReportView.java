@@ -7,7 +7,6 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -16,11 +15,10 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.query.JRHibernateQueryExecuterFactory;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.swing.JRViewer;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import tools.HibernateUtil;
 
 /**
@@ -29,33 +27,26 @@ import tools.HibernateUtil;
  */
 public class ReportView extends javax.swing.JInternalFrame {
 
-    private Connection connection;
+    Session session = HibernateUtil.getSessionFactory().openSession();
     JasperReport Jasrep;
     JasperPrint Jaspri;
-    Map param = new HashMap();
+    Map<String, Object> param = new HashMap<>();
     JasperDesign JasDes;
-    private SessionFactory sessionFactory;
-    private Session session;
-    private Transaction transaction;
 
     /**
      * Creates new form Report
      */
-    public ReportView(String file) {
+    public ReportView(String reportName) {
         initComponents();
-//        report(new file);
+        report(reportName);
     }
 
-    public Session openSession() {
-        return session = openSession();
-    }
-
-    void report(Session session, String reportName) {
+    void report(String reportName) {
+        param.put(JRHibernateQueryExecuterFactory.PARAMETER_HIBERNATE_SESSION, session);
         try {
-            Session s = this.openSession();
-            JasperDesign jd = JRXmlLoader.load("./src/report/Report" + reportName + ".jrxml");
+            JasperDesign jd = JRXmlLoader.load("src/report/Report" + reportName + ".jrxml");
             JasperReport report = JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(report, null);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(report, param);
             JRViewer viewer = new JRViewer(jasperPrint);
             Container c = getContentPane();
             c.setLayout(new BorderLayout());
@@ -78,7 +69,6 @@ public class ReportView extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Report");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,8 +83,6 @@ public class ReportView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

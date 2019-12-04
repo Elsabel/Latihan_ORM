@@ -239,9 +239,9 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_mnReportEmployeeActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-//        ReportView reportView = new ReportView("Job");
-//        reportView.show();
-//        dskHR.add(reportView);
+        ReportView reportView = new ReportView("Job");
+        reportView.show();
+        dskHR.add(reportView);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -252,7 +252,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void mnReportLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReportLocationActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
 //        ReportView reportView = new ReportView("Location");
 //        reportView.show();
 //        dskHR.add(reportView);

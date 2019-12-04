@@ -22,9 +22,9 @@ public class ManualTest {
         // System.out.println(HibernateUtil.getSessionFactory());
         //Session session=HibernateUtil.getSessionFactory().openSession();
 
-//        Region region=new Region();
-//        region.setRegionId(new BigDecimal(13));
-//        region.setRegionName("Jekate");
+//        Job job=new Job();
+//        job.setjobId("DEV");
+//        job.setjobTitle("Developer");
 //        RegionDao regiondao=new RegionDao();
         //System.out.println(regiondao.createRegion(region));
         // System.out.println(regiondao.deleteRegion(region));
@@ -54,10 +54,10 @@ public class ManualTest {
 //        RegionController controller = new RegionController();
 //        System.out.println(controller.create(6, "Meikartaulalala"));
 //        
-        List<Region> rc=new RegionController().getAll();
-        for (Region region1 : rc) {
-            System.out.println(region1.getRegionId()+" "+region1.getRegionName());
-        }
+//        List<Region> rc=new RegionController().getAll();
+//        for (Region region1 : rc) {
+//            System.out.println(region1.getRegionId()+" "+region1.getRegionName());
+//        }
         
         //UPDATE USE CONTROLLER
 //        Region region = new Region();
