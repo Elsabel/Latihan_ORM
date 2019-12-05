@@ -39,7 +39,7 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         bindingTabel();
         cmbManager();
         cmbDepartment();
-        cmbJob();
+//        cmbJob();
     }
 
     /**
@@ -591,49 +591,49 @@ public class EmployeesView extends javax.swing.JInternalFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        String id = txtId.getText();
-        String firstName = txtFName.getText();
-        String lastName = txtLName.getText();
-        String email = txtEmail.getText();
-
-        String phone = txtPhone.getText();
-        String jenis = "yyyy-MM-dd";
-        SimpleDateFormat dm = new SimpleDateFormat(jenis);
-        String tgl = String.valueOf(dm.format(txtHire.getDate()));
-        String jobId = jobController.selectByName(cmbJob.getSelectedItem().toString()).getJobId();
-        String salary = txtSalary.getText();
-        String commision = txtComm.getText();
-        
-        String man_name = cmbManager.getSelectedItem().toString();  
-        String[] nm=man_name.split(" ");
-        String fname=nm[0];
-        String lname=nm[1];
-        int manId = employeeController.selectByName(fname,lname).getEmployeeId();
-        String managerID=Integer.toString(manId);
-
-        String dep_name = cmbDepartmen.getSelectedItem().toString();
-        int manDep = departmentController.selectByName(dep_name).getDepartmentId();
-        String depID=Integer.toString(manDep);
-                
-//        int a = employeeController.selectById(id).getEmployeeId();
-
-        if (!txtId.isEnabled()) {
-            try {
-                JOptionPane.showMessageDialog(this, employeeController.update(id, firstName, lastName, email, phone, tgl, jobId, salary, commision, managerID, depID));
-                reset();
-            } catch (ParseException ex) {
-                Logger.getLogger(EmployeesView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-
-            try {
-                JOptionPane.showMessageDialog(this, employeeController.create(id, firstName, lastName, email, phone, tgl, salary, commision, managerID, jobId, depID));
-                reset();
-            } catch (ParseException ex) {
-                Logger.getLogger(EmployeesView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        bindingTabel();
+//        String id = txtId.getText();
+//        String firstName = txtFName.getText();
+//        String lastName = txtLName.getText();
+//        String email = txtEmail.getText();
+//
+//        String phone = txtPhone.getText();
+//        String jenis = "yyyy-MM-dd";
+//        SimpleDateFormat dm = new SimpleDateFormat(jenis);
+//        String tgl = String.valueOf(dm.format(txtHire.getDate()));
+////        String jobId = jobController.selectByName(cmbJob.getSelectedItem().toString()).getJobId();
+//        String salary = txtSalary.getText();
+//        String commision = txtComm.getText();
+//        
+//        String man_name = cmbManager.getSelectedItem().toString();  
+//        String[] nm=man_name.split(" ");
+//        String fname=nm[0];
+//        String lname=nm[1];
+//        int manId = employeeController.selectByName(fname,lname).getEmployeeId();
+//        String managerID=Integer.toString(manId);
+//
+//        String dep_name = cmbDepartmen.getSelectedItem().toString();
+//        int manDep = departmentController.selectByName(dep_name).getDepartmentId();
+//        String depID=Integer.toString(manDep);
+//                
+////        int a = employeeController.selectById(id).getEmployeeId();
+//
+//        if (!txtId.isEnabled()) {
+//            try {
+//                JOptionPane.showMessageDialog(this, employeeController.update(id, firstName, lastName, email, phone, tgl, jobId, salary, commision, managerID, depID));
+//                reset();
+//            } catch (ParseException ex) {
+//                Logger.getLogger(EmployeesView.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+//
+//            try {
+//                JOptionPane.showMessageDialog(this, employeeController.create(id, firstName, lastName, email, phone, tgl, salary, commision, managerID, jobId, depID));
+//                reset();
+//            } catch (ParseException ex) {
+//                Logger.getLogger(EmployeesView.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        bindingTabel();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -687,12 +687,12 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         }
     }
 
-    void cmbJob() {
-        for (models.Job j : jobController.getAll()) {
-            cmbJob.addItem(j.getJobTitle());
-
-        }
-    }
+//    void cmbJob() {
+//        for (models.Job j : jobController.()) {
+//            cmbJob.addItem(j.getJobTitle());
+//
+//        }
+//    }
 
     void reset() {
         txtId.setText("");

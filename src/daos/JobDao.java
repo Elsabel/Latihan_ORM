@@ -5,12 +5,7 @@
  */
 package daos;
 
-import java.util.ArrayList;
 import java.util.List;
-import models.Job;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import tools.HibernateUtil;
 
 /**
@@ -19,146 +14,38 @@ import tools.HibernateUtil;
  */
 public class JobDao {
 
-    private SessionFactory sessionFactory;
-    private Session session;
-    private Transaction transaction;
+    public GeneralDao fd;
 
     public JobDao() {
-        this.sessionFactory = HibernateUtil.getSessionFactory();
+        this.fd = new GeneralDao(HibernateUtil.getSessionFactory());
     }
 
-    public boolean createJob(Job job) {
-
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            this.session.save(job);
-            this.transaction.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            this.session.close();
-        }
-        return false;
+    public List<Object> select() {
+        return fd.select("Job");
     }
 
-    public boolean deleteJob(Job job) {
-
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            this.session.delete(job);
-            this.transaction.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            this.session.close();
-        }
-        return false;
+    public boolean createJob(Object object) {
+        return fd.save(object);
     }
 
-    public boolean updateJob(Job job) {
+    public boolean deleteJob(Object object) {
 
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            this.session.update(job);
-            this.transaction.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            this.session.close();
-        }
-        return false;
+        return fd.delete(object);
     }
 
-    public List<Job> selectJob() {
-        List<Job> jobs = new ArrayList<>();
-
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            jobs = session.createQuery("from Job").list();
-            transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return jobs;
+    public boolean updateJob(Object object) {
+        return fd.save(object);
     }
 
-    public Job selectById(String id) {
-        Job job = new Job();
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            job=(Job) session.createQuery("from Job where jobId="+id).uniqueResult();
-            transaction.commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction!=null) {
-                transaction.rollback();
-            }
-        }
-        finally{
-            session.close();
-        }
-        return job;
-    }
-    public List<Job> searchJob(String key){
-          List<Job> jobs = new ArrayList<>();
-
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            jobs = session.createQuery("From Job where jobId like '%"+key+"%' or jobTitle like '%"+key+"%' or minSalary like '%"+key+"%' or maxSalary like '%"+key+"%'").list();
-            transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return jobs;
+    public Object selectById(String id) {
+        return fd.selectById("FEOM Job WHERE jobId='" + id + "'");
     }
 
-    public Job selectByName(String name) {
-        Job job = new Job();
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            job=(Job) session.createQuery("from Job where jobTitle="+name).uniqueResult();
-            transaction.commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction!=null) {
-                transaction.rollback();
-            }
-        }
-        finally{
-            session.close();
-        }
-        return job;
+    public List<Object> searchJob(String key) {
+        return fd.select("FROM Job WHERE jobId" + " LIKE '%" + key + "%' jobTitle" + " LIKE '%" + key + "% minSalary" + " LIKE '%" + key + "% maxSalary" + " LIKE '%" + key + "%'");
     }
 
+    public Object selectByName(String name) {
+        return fd.selectById("FROM Job WHERE jobTitle='" + name + "'");
+    }  
 }

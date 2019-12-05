@@ -112,10 +112,10 @@ public class ManualTest {
         ///controller.delete("2");
         //System.out.println(controller.selectByName("Steven", "King").getJobId().getJobTitle());
         
-        List<Employee> emp=new EmployeeController().getAll();
-        for (Employee employee1 : emp) {
-            System.out.println(employee1.getEmployeeId()+" "+employee1.getFirstName()+" "+employee1.getDepartmentId().getDepartmentName());
-        }
+//        List<Employee> emp=new EmployeeController().getAll();
+//        for (Employee employee1 : emp) {
+//            System.out.println(employee1.getEmployeeId()+" "+employee1.getFirstName()+" "+employee1.getDepartmentId().getDepartmentName());
+//        }
 
         //SELECT BY JOB USE CONTROLLER 
 //        Job j=new JobController().selectByName("Programmer");

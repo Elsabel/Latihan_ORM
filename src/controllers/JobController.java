@@ -5,12 +5,10 @@
  */
 package controllers;
 
-import daos.JobDao;
-import daos.RegionDao;
-import java.math.BigDecimal;
+import daos.GeneralDao;
 import java.util.List;
 import models.Job;
-import models.Region;
+import tools.HibernateUtil;
 
 /**
  *
@@ -18,46 +16,45 @@ import models.Region;
  */
 public class JobController {
 
-    private JobDao dao;
-
+   private GeneralDao dao;
+   
     public JobController() {
-        this.dao = new JobDao();
+        this.dao = new GeneralDao(HibernateUtil.getSessionFactory());
     }
-
-    public JobController(JobDao dao) {
-        this.dao = dao;
-    }
+//    private void bindingTabels(JTable table, String[] header, List<Object> datas) {
+//        DefaultTableModel model = new DefaultTableModel(header, 0);
+//
+//        for (Object data : datas) {
+//            Job jobs = (Job) data;
+//            Object[] data1 = {
+//                jobs.getJobId(),
+//                jobs.getJobTitle(),
+//                jobs.getMinSalary(),
+//                jobs.getMaxSalary()
+//            };
+//            model.addRow(data1);
+//        }
+//        table.setModel(model);
+//    }
+//
+//    public void bindingall(JTable table, String[] header) {
+//        bindingTabels(table, header, jd.select());
+//    }
 
     public String create(String id, String name, Integer min, Integer max) {
-        return this.dao.createJob(new Job(id, name, min, max)) ? 
-                "Success to Create Job" : "Failed to Create Job";
-    }
-    
-    public String update(String id, String name,Integer min, Integer max){
-        return this.dao.updateJob(new Job(id, name, min, max)) ?
-                "Success to Update Job" : "Failed to Update Job";
+        return this.dao.save(new Job(id, name, min, max))
+                ? "Success to Save Job" : "Failed to Save Job";
     }
 
-    public String delete(String id, String name, Integer min, Integer max){
-        return this.dao.deleteJob(new Job(id, name, min, max)) ?
-                "Success to Delete Job" : "Failed to Delete Job";
+    public String delete(String id, String name, Integer min, Integer max) {
+        return this.dao.delete(new Job(id, name, min, max))
+                ? "Success to Delete Job" : "Failed to Delete Job";
     }
-    
-    public List<Job> getAll(){
-     return this.dao.selectJob();
-    }
-    
-    public Job selectById(String id){
-        return this.dao.selectById(id);
-               
-    }
-    
-    public Job selectByName(String name){
-        return this.dao.selectByName(name);     
-    }
-    
-    public List<Job> search(String key){
-        return this.dao.searchJob(key);
+    public List<Job> getAll() {
+        return this.dao.select("Job");
     }
 
+    public List<Job> search(String cmb, String txt) {
+        return this.dao.search("Job", cmb, txt);
+    }
 }
