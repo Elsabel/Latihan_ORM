@@ -616,23 +616,13 @@ public class EmployeesView extends javax.swing.JInternalFrame {
         String depID=Integer.toString(manDep);
                 
 //        int a = employeeController.selectById(id).getEmployeeId();
-
-        if (!txtId.isEnabled()) {
-            try {
-                JOptionPane.showMessageDialog(this, employeeController.update(id, firstName, lastName, email, phone, tgl, jobId, salary, commision, managerID, depID));
-                reset();
-            } catch (ParseException ex) {
-                Logger.getLogger(EmployeesView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-
-            try {
-                JOptionPane.showMessageDialog(this, employeeController.create(id, firstName, lastName, email, phone, tgl, salary, commision, managerID, jobId, depID));
-                reset();
-            } catch (ParseException ex) {
-                Logger.getLogger(EmployeesView.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            JOptionPane.showMessageDialog(this, employeeController.create(id, firstName, lastName, email, phone, tgl, jobId, salary, commision, managerID, depID));
+        } catch (ParseException ex) {
+            Logger.getLogger(EmployeesView.class.getName()).log(Level.SEVERE, null, ex);
         }
+                reset();
+           
         bindingTabel();
     }//GEN-LAST:event_btnAddActionPerformed
 

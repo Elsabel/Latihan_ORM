@@ -107,7 +107,7 @@ public class JobsView extends javax.swing.JInternalFrame {
         jLabel4.setText("Max Salary");
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add");
+        btnAdd.setText("Save");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);

@@ -9,8 +9,8 @@ import controllers.DepartmentController;
 import controllers.EmployeeController;
 import controllers.JobController;
 import controllers.RegionController;
-import daos.JobDao;
-import daos.RegionDao;
+
+import daos.GeneralDao;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
@@ -29,8 +29,8 @@ import org.hibernate.Session;
 public class ManualTest {
 
     public static void main(String[] args) throws ParseException {
-        // System.out.println(HibernateUtil.getSessionFactory());
-        //Session session=HibernateUtil.getSessionFactory().openSession();
+        //System.out.println(HibernateUtil.getSessionFactory());
+        // Session session=HibernateUtil.getSessionFactory().openSession();
 
 //        Region region=new Region();
 //        region.setRegionId(new BigDecimal(13));
@@ -52,7 +52,6 @@ public class ManualTest {
 //            Region r=region;
 //                System.out.println(r.getRegionName());
 //        }
-
         //GET ALL USE CONTROLLER
 //        List<Region> rc=new RegionController().getAll();
 //        for (Region region : rc) {
@@ -68,7 +67,6 @@ public class ManualTest {
 //            }
 //            
 //        }
-
         //CREATE USE CONTROLLER
 //        Region region = new Region();
 //        RegionController controller = new RegionController();
@@ -88,7 +86,6 @@ public class ManualTest {
 //        for (Region region2 : rs) {
 //            System.out.println(region2.getRegionId()+" "+region2.getRegionName());
 //        }
-
         //DELETE USE CONTROLLER
 //        RegionController regionController=new RegionController();
 //        System.out.println(regionController.delete("13"));
@@ -97,54 +94,59 @@ public class ManualTest {
 //        for (Region region3 : rd) {
 //            System.out.println(region3.getRegionId()+" "+region3.getRegionName());
 //        }
-
         //SELECT EMPLOYEE
 //        List<Employee> rc=new EmployeeController().getAll();
 //        for (Employee employee : rc) {
 //            System.out.println(employee.getEmployeeId()+" "+employee.getFirstName());
 //        }
-        
         //CREATE EMPLOYEE USE CONTROLLER (masih gagal)
         //EmployeeController controller = new EmployeeController();
-       //controller.create("4", "huhu", "hehe", "huhe", "1111", "2019-01-13", "700", "0", "100", "PU_MAN", "60");
-      
-       //FUNGSI DELETE
+        //controller.create("4", "huhu", "hehe", "huhe", "1111", "2019-01-13", "700", "0", "100", "PU_MAN", "60");
+        //FUNGSI DELETE
         ///controller.delete("2");
         //System.out.println(controller.selectByName("Steven", "King").getJobId().getJobTitle());
-        
-        List<Employee> emp=new EmployeeController().getAll();
-        for (Employee employee1 : emp) {
-            System.out.println(employee1.getEmployeeId()+" "+employee1.getFirstName()+" "+employee1.getDepartmentId().getDepartmentName());
-        }
-
+//        
+//        List<Employee> emp=new EmployeeController().getAll();
+//        for (Employee employee1 : emp) {
+//            System.out.println(employee1.getEmployeeId()+" "+employee1.getFirstName()+" "+employee1.getDepartmentId().getDepartmentName());
+//        }
         //SELECT BY JOB USE CONTROLLER 
 //        Job j=new JobController().selectByName("Programmer");
 //        System.out.println(j.getJobId());
-        
         //SELECT BY NAME OF EMPLOYEE USE CONTROLLER AND RELATIONAL SHOW OF JOB 
 //        Employee e=new EmployeeController().selectByName("Neena");
 //        System.out.println(e.getEmployeeId()+" "
 //                +e.getFirstName()+" "
 //                +e.getJobId().getJobTitle());
-        
 //        Department d=new DepartmentController().selectByName("Administration");
 //        System.out.println(d.getDepartmentId()+" "+d.getDepartmentName()+" "+d.getManagerId().getFirstName());
-        
 //        Job job=new JobController().selectByName("Sales");
 //        System.out.println(job.getJobTitle());
-
-        
         //SEARCH JOB USE CONTROLLER
 //        List<Job> job=new JobController().searchJob("IT_PROG");
 //           for (Job job1 : job) {
 //               System.out.println(job1.getJobTitle());
 //        }
-
 //        List<Job> jobs=new JobController().getAll();
 //        for (Job job : jobs) {
 //            System.out.println(job.getJobId()+" "+job.getJobTitle());
 //        }
+        GeneralDao dao = new GeneralDao(HibernateUtil.getSessionFactory());
+     Region region= new Region();
+        region.setRegionId(BigDecimal.valueOf(9));
+        region.setRegionName("Pekanbaru");
+    //  System.out.println(dao.save(region));
 
-        
-}
+        Country country=new Country("ER", "BALIi", region);
+      //  System.out.println(dao.save(country));
+
+     Location location=new Location(BigDecimal.valueOf(21), "Tanjung Duren", "1C", "TIMUR", "JAKARTA", country);
+     //   System.out.println(dao.save(location));
+    //    System.out.println(dao.delete(location));
+//        List<Location> l=dao.select("from Location");
+//        for (Location location1: l ) {
+//            System.out.println(location1.getCity());
+//        }
+
+    }
 }

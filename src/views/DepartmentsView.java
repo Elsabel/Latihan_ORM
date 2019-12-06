@@ -8,11 +8,17 @@ package views;
 import controllers.DepartmentController;
 import controllers.EmployeeController;
 import controllers.LocationController;
+import controllers.RegionController;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Department;
+import models.Employee;
 import models.Location;
+import models.Region;
 
 /**
  *
@@ -21,6 +27,7 @@ import models.Location;
 public class DepartmentsView extends javax.swing.JInternalFrame {
 
     Department department = new Department();
+//    Location location = new Location();
     DepartmentController departmentController = new DepartmentController();
     LocationController locationController = new LocationController();
     EmployeeController employeeController = new EmployeeController();
@@ -60,6 +67,7 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
         btnSave = new javax.swing.JButton();
         cmbLocation = new javax.swing.JComboBox<>();
         cmbManager = new javax.swing.JComboBox<>();
+        cmbSearch = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setClosable(true);
@@ -193,6 +201,8 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        cmbSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Name", "Manager", "Location" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,6 +213,8 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cmbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch))
@@ -215,7 +227,8 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
+                    .addComponent(btnSearch)
+                    .addComponent(cmbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
@@ -228,12 +241,7 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
-//        String search = txtSearch.getText();
-////        String pattern = ".[a-zA-Z][0-9]";
-//        String pattern = "(*.)(\\w+)(.*)";
-//        Pattern p = Pattern.compile(search);
-//        Matcher matcher = p.matcher(search);
-//        bindingTabel();
+        
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -254,19 +262,11 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
         } else if (locid.equals("")) {
             JOptionPane.showMessageDialog(this, "City cannot be empty !");
         } else {
-            if (!txtId.isEnabled()) {
-//            JOptionPane.showMessageDialog(this, "update");
-                JOptionPane.showMessageDialog(this, departmentController.update(id, name, getManagerId[0], getLocationId[0]));
-                reset();
-                txtId.setEnabled(true);
-            } else {
 //            JOptionPane.showMessageDialog(this, "Save");
-                JOptionPane.showMessageDialog(this, departmentController.create(id, name, getManagerId[0], getLocationId[0]));
-                reset();
-                txtId.setEnabled(true);
-            }
+            JOptionPane.showMessageDialog(this, departmentController.save(id, name, getManagerId[0], getLocationId[0]));
+            reset();
+            txtId.setEnabled(true);
         }
-
         bindingTabel();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -306,8 +306,43 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-//        String key = txtSearch.getText();
-        bindingTabelSearch();
+        String field;
+        if (cmbSearch.getSelectedItem().equals("ID")) {
+            field = "departmentID";
+        }
+        if (cmbSearch.getSelectedItem().equals("Name")) {
+            field = "deparmentName";
+        }
+        if (cmbSearch.getSelectedItem().equals("Manager")) {
+            field = "managerId";
+        } else {
+            field = "locationId";
+        }
+        DepartmentController departmentController = new DepartmentController();
+        List<Department> depSearch = new ArrayList<>();
+        String key = txtSearch.getText();
+        depSearch = departmentController.search("Department", "cmb", "key");
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(
+                new String[]{
+                    "ID",
+                    "DEPARTMENT NAME",
+                    "MANAGER",
+                    "LOCATION"
+                }
+        );
+        for (Department d : depSearch) {
+            Object[] os = new Object[4];
+            os[0] = d.getDepartmentId();
+            os[1] = d.getDepartmentName();
+            os[2] = d.getManagerId();
+            os[3] = d.getLocationId();
+            tableModel.addRow(os);
+        }
+        tblDepartment.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblDepartment.setModel(tableModel);
+        
+        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdMouseClicked
@@ -329,6 +364,7 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cmbLocation;
     private javax.swing.JComboBox<String> cmbManager;
+    private javax.swing.JComboBox<String> cmbSearch;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelID;
@@ -352,61 +388,52 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
                 }
         );
 
-        for (Department d : departmentController.getAll()) {
-//            String a = null;
+        for (Object d : departmentController.getAll()) {
+            Department d1 = (Department) d;
             Object[] o = new Object[4];
-            o[0] = d.getDepartmentId();
-            o[1] = d.getDepartmentName();
-//            if (d.getManagerId().getFirstName().equals(null)) { 
-            if (d.getManagerId() == null) {
+            o[0] = d1.getDepartmentId();
+            o[1] = d1.getDepartmentName();
+            if (d1.getManagerId() == null) {
                 o[2] = "-";
             } else {
-                o[2] = d.getManagerId().getEmployeeId() + " - " + d.getManagerId().getFirstName();
+                o[2] = d1.getManagerId().getEmployeeId() + " - " + d1.getManagerId().getFirstName();
             }
-//            o[2] = d.getManagerId().getEmployeeId() + " - " + d.getManagerId().getFirstName();
-            o[3] = d.getLocationId().getCity();
+            o[3] = d1.getLocationId().getCity();
             tableModel.addRow(o);
         }
         tblDepartment.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblDepartment.setModel(tableModel);
     }
 
-    private void bindingTabelSearch() {
-        String search = txtSearch.getText();
-//        String pattern = ".[a-zA-Z][0-9]";
-//        String pattern = "(*.)(\\w+)(.*)";
-//        Pattern p = Pattern.compile(search);
-//        Matcher matcher = p.matcher(search);
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(
-                new String[]{
-                    "ID",
-                    "DEPARTMENT NAME",
-                    "MANAGER",
-                    "LOCATION"
-                }
-        );
-
-//        if (matcher.matches()) {
-        for (Department d : departmentController.search(search)) {
-            Object[] o = new Object[4];
-            o[0] = d.getDepartmentId();
-            o[1] = d.getDepartmentName();
-            if (d.getManagerId() == null) {
-                o[2] = "-";
-            } else {
-                o[2] = d.getManagerId().getEmployeeId() + " - " + d.getManagerId().getFirstName();
-            }
-//            o[2] = d.getManagerId().getEmployeeId() + " - " + d.getManagerId().getFirstName();
-            o[3] = d.getLocationId().getCity();
-            tableModel.addRow(o);
-        }
+//    private void bindingTabelSearch() {
+//        String search = txtSearch.getText();
+//        DefaultTableModel tableModel = new DefaultTableModel();
+//        tableModel.setColumnIdentifiers(
+//                new String[]{
+//                    "ID",
+//                    "DEPARTMENT NAME",
+//                    "MANAGER",
+//                    "LOCATION"
+//                }
+//        );
+//
+//        for (Object d : departmentController.search("Department", title, search)) {
+//            Object[] o = new Object[4];
+//            o[0] = d.getDepartmentId();
+//            o[1] = d.getDepartmentName();
+//            if (d.getManagerId() == null) {
+//                o[2] = "-";
+//            } else {
+//                o[2] = d.getManagerId().getEmployeeId() + " - " + d.getManagerId().getFirstName();
+//            }
+//            o[3] = d.getLocationId().getCity();
+//            tableModel.addRow(o);
 //        }
-        tblDepartment.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tblDepartment.setModel(tableModel);
-
-    }
-
+////        }
+//        tblDepartment.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+//        tblDepartment.setModel(tableModel);
+//
+//    }
     public void filterAngka(KeyEvent a) {
         if (Character.isAlphabetic(a.getKeyChar())) {
             a.consume();
@@ -432,15 +459,16 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
 
     }
 
-    private void comboBoxManager() {
-        for (models.Employee employee : employeeController.getAll()) {
-            cmbManager.addItem(employee.getEmployeeId() + " - " + employee.getFirstName());
+    private void comboBoxLocation(){
+        for (Object location : locationController.getAll()) {
+            Location l = (Location) location;
+            cmbLocation.addItem(l.getLocationId()+ " - " + l.getCity());
         }
     }
 
-    private void comboBoxLocation() {
-        for (models.Location location : locationController.getAll()) {
-            cmbLocation.addItem(location.getLocationId() + " - " + location.getCity());
+    private void comboBoxManager() {
+        for (models.Employee employee : employeeController.getAll()) {
+            cmbManager.addItem(employee.getEmployeeId() + " - " + employee.getFirstName());
         }
     }
 

@@ -5,59 +5,50 @@
  */
 package controllers;
 
-import daos.LocationDao;
+import daos.GeneralDao;
 import java.math.BigDecimal;
 import java.util.List;
 import models.Country;
 import models.Location;
+import tools.HibernateUtil;
 
 /**
  *
  * @author Rizky
  */
-public class LocationController {
-    LocationDao locationDao;
+public class LocationController<E> {
+
+    private GeneralDao dao;
 
     public LocationController() {
-        this.locationDao = new LocationDao();
-        
+        this.dao = new GeneralDao(HibernateUtil.getSessionFactory());
     }
 
-    public LocationController(LocationDao locationDao) {
-        this.locationDao = locationDao;
+    public String save(String id, String address, String postal, String city, String province, String country) {
+        return this.dao.save(new Location(new BigDecimal(id),
+                address, postal, city, province, new Country(country)))
+                ? "Success to Save Location" : "Failed to Save Location";
     }
-    
-    public List<Location> getAll(){
-     return this.locationDao.selectLocations();
+
+    public String delete(String id) {
+        return this.dao.delete(new Location(new BigDecimal(id)))
+                ? "Success to Delete Location" : "Failed to Delete Location";
     }
-    
-    public String create(String id, String address, String postal, String city,
-        String province, String country){
-        return this.locationDao.createLocation(new Location(new BigDecimal(id), 
-                address, postal, city, province, new Country(country))) ? 
-                "Success to Create Location" : "Failed to Create Location";
+
+    public List<Location> getAll() {
+        return this.dao.select("Location");
     }
-    public String update(String id, String address, String postal, String city,
-        String province, String country){
-        return this.locationDao.updateLocation(new Location(new BigDecimal(id), 
-                address, postal, city, province, new Country(country))) ? 
-                "Success to Update Location" : "Failed to Update Location";
+
+    public List<Location> search(String cmb, String txt) {
+        return this.dao.search("Location", cmb, txt);
     }
-    public String delete(String id){
-        return this.locationDao.deleteLocation(new Location(new BigDecimal(id))) ?
-                "Success to Delete Location" : "Failed to Delete Location";
+
+    public Location selectByName(String txt) {
+        return (Location) this.dao.selectByName("Location", "city", txt);
     }
-    
-    public List<Location> search(String key){
-        return this.locationDao.searchLocations(key);
+
+    public Location selectById(String txt) {
+        return (Location) this.dao.selectById("Location", "locationId", txt);
     }
-    
-    public Location selectById(String id){
-        return this.locationDao.selectById(Integer.parseInt(id));
-    }
-    
-    public Location selectByName(String name){
-        return this.locationDao.selectByName(name);
-    }
-    
+
 }

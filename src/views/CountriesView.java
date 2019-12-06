@@ -99,7 +99,7 @@ public class CountriesView extends javax.swing.JInternalFrame {
         jLabel4.setText("Region");
 
         bt_add1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        bt_add1.setText("SAVE");
+        bt_add1.setText("Save");
         bt_add1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_add1ActionPerformed(evt);
@@ -247,7 +247,7 @@ public class CountriesView extends javax.swing.JInternalFrame {
 //       tregion_id.setText((String) tbl_countries.getValueAt(row, 2).toString());
         String regionName = (String) tbl_countries.getValueAt(row, 2).toString();
 //        JOptionPane.showMessageDialog(this, regionController.selectByname(regionName).getRegionName());
-        cmbRegion.setSelectedItem(regionController.selectByname(regionName).getRegionId()+" - "+regionName);
+//        cmbRegion.setSelectedItem(regionController.selectByname(regionName).getRegionId()+" - "+regionName);
 
 //        int maxItem = cmbRegion.getMaximumRowCount();
 //        for (int i = 0; i < maxItem; i++) {
