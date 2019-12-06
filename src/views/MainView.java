@@ -200,16 +200,16 @@ public class MainView extends javax.swing.JFrame {
 
     private void mnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEmployeeActionPerformed
 
-        EmployeesView employeesView = new EmployeesView();
-        employeesView.show();
-        dskHR.add(employeesView);
+//        EmployeesView employeesView = new EmployeesView();
+//        employeesView.show();
+//        dskHR.add(employeesView);
     }//GEN-LAST:event_mnEmployeeActionPerformed
 
     private void mnJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnJobActionPerformed
 
-        JobsView jobsView = new JobsView();
-        jobsView.show();
-        dskHR.add(jobsView);
+//        JobsView jobsView = new JobsView();
+//        jobsView.show();
+//        dskHR.add(jobsView);
     }//GEN-LAST:event_mnJobActionPerformed
 
     private void mnLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLocationActionPerformed
@@ -228,9 +228,9 @@ public class MainView extends javax.swing.JFrame {
 
     private void mnCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCountryActionPerformed
         // TODO add your handling code here:
-        CountriesView country = new CountriesView();
-        country.show();
-        dskHR.add(country);
+//        CountriesView country = new CountriesView();
+//        country.show();
+//        dskHR.add(country);
     }//GEN-LAST:event_mnCountryActionPerformed
 
     private void mnReportRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReportRegionActionPerformed
