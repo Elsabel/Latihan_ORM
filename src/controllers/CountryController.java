@@ -11,7 +11,7 @@ import java.util.List;
 import models.Country;
 import models.Region;
 import tools.HibernateUtil;
-
+ 
 /**
  *
  * @author ASUS
