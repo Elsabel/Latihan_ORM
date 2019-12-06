@@ -6,15 +6,11 @@
 package views;
 
 import controllers.JobController;
-import controllers.RegionController;
-import daos.JobDao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import models.Job;
-import models.Region;
 import tools.Setting;
 
 /**
@@ -24,7 +20,6 @@ import tools.Setting;
 public class JobsView extends javax.swing.JInternalFrame {
 
     Job job = new Job();
-    public JobDao jd = new JobDao();
     JobController jobController = new JobController();
 
     /**
@@ -439,7 +434,6 @@ public class JobsView extends javax.swing.JInternalFrame {
             os[2] = j1.getMinSalary();
             os[3] = j1.getMaxSalary();
             tableModel.addRow(os);
-
         }
         tblJobs.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblJobs.setModel(tableModel);

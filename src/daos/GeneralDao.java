@@ -76,7 +76,7 @@ public class GeneralDao<E> implements IDao<E> {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             data = session
-                    .createQuery("from " + entity)
+                    .createQuery("from " + entity+" Order By 1")
                     .list();
             transaction.commit();
         } catch (Exception e) {
