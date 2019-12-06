@@ -5,10 +5,13 @@
  */
 package views;
 
-import controllers.LocationController;
+
 import controllers.CountryController;
+import controllers.LocationController;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -64,6 +67,7 @@ public class LocationsView extends javax.swing.JInternalFrame {
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         cmbCountry = new javax.swing.JComboBox<>();
+        cmbSearch = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -99,6 +103,7 @@ public class LocationsView extends javax.swing.JInternalFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(0, 204, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -225,12 +230,16 @@ public class LocationsView extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
+        cmbSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Location Id", "Street Address", "Postal Code", "City", "State Province", "Country", " " }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cmbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSearch)
@@ -248,7 +257,8 @@ public class LocationsView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
+                    .addComponent(btnSearch)
+                    .addComponent(cmbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -261,7 +271,6 @@ public class LocationsView extends javax.swing.JInternalFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-//        String id = txtId.getText();
         if (JOptionPane.showConfirmDialog(this, "Delete Data?", "Confirmation",
                 JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
             String id = txtId.getText();
@@ -269,9 +278,6 @@ public class LocationsView extends javax.swing.JInternalFrame {
             reset();
             bindingTabel();
         }
-//        JOptionPane.showMessageDialog(this, locationController.delete(txtId.getText()));
-//        reset();
-//        bindingTabel();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblLocationMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLocationMousePressed
@@ -315,19 +321,11 @@ public class LocationsView extends javax.swing.JInternalFrame {
         } else if (country == 0) {
             JOptionPane.showMessageDialog(this, "Country cannot be empty !");
         } else {
-            if (!txtId.isEnabled()) {
-                JOptionPane.showMessageDialog(this, locationController.update(txtId.getText(),
+            JOptionPane.showMessageDialog(this, locationController.save(txtId.getText(),
                         txtStreet.getText(), txtPostal.getText(), txtCity.getText(),
                         txtState.getText(), getIdCountry));
-                reset();
-                txtId.setEnabled(true);
-            } else {
-                JOptionPane.showMessageDialog(this, locationController.create(txtId.getText(),
-                        txtStreet.getText(), txtPostal.getText(), txtCity.getText(),
-                        txtState.getText(), getIdCountry));
-                reset();
-                txtId.setEnabled(true);
-            }
+            reset();
+            txtId.setEnabled(true);
         }
 
         bindingTabel();
@@ -336,6 +334,7 @@ public class LocationsView extends javax.swing.JInternalFrame {
     private void txtIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdMouseClicked
         // TODO add your handling code here:
         reset();
+        txtId.setEnabled(true);
         txtId.requestFocus();
     }//GEN-LAST:event_txtIdMouseClicked
 
@@ -363,6 +362,7 @@ public class LocationsView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cmbCountry;
+    private javax.swing.JComboBox<String> cmbSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -403,7 +403,8 @@ public class LocationsView extends javax.swing.JInternalFrame {
                     "COUNTRY ID"
                 }
         );
-        for (Location loc : locationController.getAll()) {
+        for (Object location : locationController.getAll()) {
+            Location loc = (Location) location;
             Object[] o = new Object[6];
             o[0] = loc.getLocationId();
             o[1] = loc.getStreetAddress();
@@ -423,7 +424,23 @@ public class LocationsView extends javax.swing.JInternalFrame {
     }
 
     private void bindingTabelSearch() {
+        String field;
+        if (cmbSearch.getSelectedItem().equals("Location Id")) {
+            field="locationId";
+        }else if (cmbSearch.getSelectedItem().equals("Street Address")) {
+            field="streetAddress";
+        }else if (cmbSearch.getSelectedItem().equals("Postal Code")) {
+            field="postalCode";
+        }else if (cmbSearch.getSelectedItem().equals("City")) {
+            field="city";
+        }else if (cmbSearch.getSelectedItem().equals("State Province")) {
+            field="stateProvince";
+        }else{
+            field="countryId.countryName";
+        }
+        List<Location> locSearch = new ArrayList<>();
         String search = txtSearch.getText();
+        locSearch = locationController.search(field, search);
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(
                 new String[]{
@@ -435,7 +452,7 @@ public class LocationsView extends javax.swing.JInternalFrame {
                     "COUNTRY ID"
                 }
         );
-        for (Location loc : locationController.search(search)) {
+        for (Location loc : locSearch) {
             Object[] o = new Object[6];
             o[0] = loc.getLocationId();
             o[1] = loc.getStreetAddress();
@@ -455,7 +472,8 @@ public class LocationsView extends javax.swing.JInternalFrame {
     }
 
     public void comboBoxCountry() {
-        for (Country country : countryController.getAll()) {
+        for (Object o : countryController.getAll()) {
+            Country country=(Country) o;
             cmbCountry.addItem(country.getCountryId() + " - " + country.getCountryName());
         }
     }

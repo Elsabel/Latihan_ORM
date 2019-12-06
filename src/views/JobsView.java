@@ -6,6 +6,8 @@
 package views;
 
 import controllers.JobController;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Job;
@@ -48,13 +50,14 @@ public class JobsView extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         txtid = new javax.swing.JTextField();
         txttitle = new javax.swing.JTextField();
         txtmin = new javax.swing.JTextField();
         txtmax = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
+        cmbSearch = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -114,11 +117,11 @@ public class JobsView extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Delete");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -195,7 +198,7 @@ public class JobsView extends javax.swing.JInternalFrame {
                         .addGap(61, 268, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(btnDelete)))
                 .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
@@ -217,10 +220,10 @@ public class JobsView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -239,6 +242,9 @@ public class JobsView extends javax.swing.JInternalFrame {
             }
         });
 
+        cmbSearch.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cmbSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Title", "Min Salary", "Max Salary" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -250,6 +256,8 @@ public class JobsView extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cmbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch)))
@@ -261,7 +269,8 @@ public class JobsView extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
+                    .addComponent(btnSearch)
+                    .addComponent(cmbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -280,8 +289,8 @@ public class JobsView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtmaxActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String id = txtid.getText();
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+       String id = txtid.getText();
         String titlee = txttitle.getText();
         String min = txtmin.getText();
         String max = txtmax.getText();
@@ -290,19 +299,48 @@ public class JobsView extends javax.swing.JInternalFrame {
         if (hapus == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(this, jobController.delete(id, max, 25, hapus));
             bindingTabel();
-            hapus();
+            reset();
         } else {
-            hapus();
+            reset();
         }
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        bindingTabelSearch();
+        String field;
+        if (cmbSearch.getSelectedItem().equals("ID")) {
+            field = "jobId";
+        } else if (cmbSearch.getSelectedItem().equals("Title")) {
+            field = "jobTitle";
+        } else if (cmbSearch.getSelectedItem().equals("Min Salary")) {
+            field = "minSalary";
+        } else {
+            field = "maxSalary";
+        }
+        JobController Job = new JobController();
+        List<Job> jobSearch = new ArrayList<>();
+        String key = txtSearch.getText();
+        jobSearch = Job.search(field, key);
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(
+                new String[]{
+                    "Job ID", "Job Title", "Min Salary", "Max Salary"
+                }
+        );
+        for (Job job1 : jobSearch) {
+            Object[] os = new Object[4];
+            os[0] = job1.getJobId();
+            os[1] = job1.getJobTitle();
+            os[2] = job1.getMinSalary();
+            os[3] = job1.getMaxSalary();
+            tableModel.addRow(os);
+        }
+        tblJobs.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblJobs.setModel(tableModel);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
-        bindingTabelSearch();
+
     }//GEN-LAST:event_txtSearchKeyTyped
 
     private void txtminKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtminKeyTyped
@@ -327,15 +365,9 @@ public class JobsView extends javax.swing.JInternalFrame {
         } else if (max.equals("")) {
             JOptionPane.showMessageDialog(this, "Max Salary cannot be empty !");
         } else {
-            if (!txtid.isEnabled()) {
-                JOptionPane.showMessageDialog(this, jobController.update(id, title, Integer.parseInt(min), Integer.parseInt(max)));
-                hapus();
-                bindingTabel();
-            } else {
-                JOptionPane.showMessageDialog(this, jobController.create(id, title, Integer.parseInt(min), Integer.parseInt(max)));
-                hapus();
-                bindingTabel();
-            }
+            JOptionPane.showMessageDialog(this, jobController.save(id, title, Integer.parseInt(min), Integer.parseInt(max)));
+            reset();
+            bindingTabel();
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -349,7 +381,7 @@ public class JobsView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblJobsMouseClicked
 
     private void txtidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtidMouseClicked
-        hapus();
+        reset();
     }//GEN-LAST:event_txtidMouseClicked
 
     private void txtidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidKeyTyped
@@ -367,8 +399,9 @@ public class JobsView extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> cmbSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -390,56 +423,27 @@ public class JobsView extends javax.swing.JInternalFrame {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(
                 new String[]{
-                    "ID",
-                    "JOB TITLE",
-                    "MIN SALARY",
-                    "MAX SALARY"
+                    "Job ID", "Job Title", "Min Salary", "Max Salary"
                 }
         );
-
-        jobController.getAll().stream().map((jobs) -> {
-            Object[] o = new Object[4];
-            o[0] = jobs.getJobId();
-            o[1] = jobs.getJobTitle();
-            o[2] = jobs.getMinSalary();
-            o[3] = jobs.getMaxSalary();
-            return o;
-        }).forEachOrdered((o) -> {
-            tableModel.addRow(o);
-        });
-
+        for (Object j : jobController.getAll()) {
+            Job j1 = (Job) j;
+            Object[] os = new Object[4];
+            os[0] = j1.getJobId();
+            os[1] = j1.getJobTitle();
+            os[2] = j1.getMinSalary();
+            os[3] = j1.getMaxSalary();
+            tableModel.addRow(os);
+        }
         tblJobs.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-
         tblJobs.setModel(tableModel);
     }
 
     private void bindingTabelSearch() {
-        String key = txtSearch.getText();
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(
-                new String[]{
-                    "JOB ID",
-                    "JOB TITLE",
-                    "MIN SALARY",
-                    "MAX SALARY"
-                }
-        );
-        jobController.search(key).stream().map((jobs) -> {
-            Object[] o = new Object[4];
-            o[0] = jobs.getJobId();
-            o[1] = jobs.getJobTitle();
-            o[2] = jobs.getMinSalary();
-            o[3] = jobs.getMaxSalary();
-            return o;
-        }).forEachOrdered((o) -> {
-            tableModel.addRow(o);
-        });
-        tblJobs.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-        tblJobs.setModel(tableModel);
     }
 
-    private void hapus() {
+    private void reset() {
         txtid.setText("");
         txttitle.setText("");
         txtSearch.setText("");

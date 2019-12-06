@@ -9,6 +9,8 @@ import controllers.CountryController;
 import controllers.RegionController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.Country;
+import models.Region;
 import tools.Setting;
 
 /**
@@ -55,38 +57,32 @@ public class CountriesView extends javax.swing.JInternalFrame {
         tbl_countries = new javax.swing.JTable();
         t_search = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        cmbCountry = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Country");
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Country Details"));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("ID");
 
         tid.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tidMouseClicked(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tidMousePressed(evt);
-            }
         });
         tid.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tidKeyPressed(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tidKeyTyped(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Name");
 
         tname.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -95,10 +91,8 @@ public class CountriesView extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Region");
 
-        bt_add1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bt_add1.setText("SAVE");
         bt_add1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,17 +100,10 @@ public class CountriesView extends javax.swing.JInternalFrame {
             }
         });
 
-        bt_delete1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bt_delete1.setText("Delete");
         bt_delete1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_delete1ActionPerformed(evt);
-            }
-        });
-
-        cmbRegion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbRegionActionPerformed(evt);
             }
         });
 
@@ -205,6 +192,8 @@ public class CountriesView extends javax.swing.JInternalFrame {
             }
         });
 
+        cmbCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Name", "Region" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -213,6 +202,8 @@ public class CountriesView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cmbCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(t_search, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(jButton1))
@@ -227,7 +218,9 @@ public class CountriesView extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(t_search))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(t_search)
+                        .addComponent(cmbCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -246,8 +239,8 @@ public class CountriesView extends javax.swing.JInternalFrame {
         tname.setText((String) tbl_countries.getValueAt(row, 1));
 //       tregion_id.setText((String) tbl_countries.getValueAt(row, 2).toString());
         String regionName = (String) tbl_countries.getValueAt(row, 2).toString();
-//        JOptionPane.showMessageDialog(this, regionController.selectByname(regionName).getRegionName());
-        cmbRegion.setSelectedItem(regionController.selectByname(regionName).getRegionId()+" - "+regionName);
+//        JOptionPane.showMessageDialog(this, regionController.selectByName(regionName).getRegionId());
+        cmbRegion.setSelectedItem(regionController.selectByName(regionName).getRegionId()+" - "+regionName);
 
 //        int maxItem = cmbRegion.getMaximumRowCount();
 //        for (int i = 0; i < maxItem; i++) {
@@ -262,11 +255,41 @@ public class CountriesView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbl_countriesMousePressed
 
     private void t_searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_searchKeyTyped
-        bindingTabelSearch();
+//        bindingTabelSearch();
     }//GEN-LAST:event_t_searchKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        bindingTabelSearch();
+     String field;
+        if (cmbCountry.getSelectedItem().equals("ID")) {
+            field="countryId";
+        }
+        else if (cmbCountry.getSelectedItem().equals("Name")) {
+            field = "countryName";
+        }
+        else{
+            field = "regionId.regionName";
+        }
+        
+        String search = t_search.getText();
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(
+                new String[]{
+                    "ID",
+                    "COUNTRY NAME",
+                    "REGION NAME"
+                }
+        );
+
+        for (Object c : countryController.search("Country", field, search)) {
+            country = (Country) c;
+            Object[] o = new Object[3];
+            o[0] = country.getCountryId();
+            o[1] = country.getCountryName();
+            o[2] = country.getRegionId().getRegionName();
+            tableModel.addRow(o);
+        }
+        tbl_countries.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbl_countries.setModel(tableModel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void bt_add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_add1ActionPerformed
@@ -277,14 +300,9 @@ public class CountriesView extends javax.swing.JInternalFrame {
         String regionId = cmbRegion.getSelectedItem().toString();
         String[] getRegionId = regionId.split(" - ");
 
-        if (!tid.isEnabled()) {
-            JOptionPane.showMessageDialog(this, countryController.update(id, name, getRegionId[0]));
-            reset();
-            tid.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, countryController.create(id, name, getRegionId[0]));
-            reset();
-        }
+        JOptionPane.showMessageDialog(this, countryController.save(id, name, getRegionId[0]));
+        reset();
+
 //        String a = countryController.selectById(id).getId();
 //        if (id.equals(a)) {
 //            JOptionPane.showMessageDialog(this, countryController.update(name, Integer.toString(region_id), id));
@@ -315,31 +333,20 @@ public class CountriesView extends javax.swing.JInternalFrame {
         tid.requestFocus();
     }//GEN-LAST:event_tidMouseClicked
 
-    private void cmbRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRegionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbRegionActionPerformed
-
-    private void tidMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tidMousePressed
-      
-    }//GEN-LAST:event_tidMousePressed
-
-    private void tidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tidKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tidKeyPressed
-
     private void tidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tidKeyTyped
-     new Setting().checkAlphabet(evt);
-     new Setting().checkLength(tid, 2, evt);
+        new Setting().checkAlphabet(evt);
+        new Setting().checkLength(tid, 2, evt);
     }//GEN-LAST:event_tidKeyTyped
 
     private void tnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tnameKeyTyped
-         new Setting().checkAlphabet(evt);
+       new Setting().checkAlphabet(evt);
     }//GEN-LAST:event_tnameKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_add1;
     private javax.swing.JButton bt_delete1;
+    private javax.swing.JComboBox<String> cmbCountry;
     private javax.swing.JComboBox<String> cmbRegion;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -371,11 +378,12 @@ public class CountriesView extends javax.swing.JInternalFrame {
                     "REGION NAME"
                 }
         );
-        for (models.Country c : countryController.getAll()) {
+        for (Object c : countryController.getAll()) {
+            country = (Country) c;
             Object[] o = new Object[3];
-            o[0] = c.getCountryId();
-            o[1] = c.getCountryName();
-            o[2] = c.getRegionId().getRegionName();
+            o[0] = country.getCountryId();
+            o[1] = country.getCountryName();
+            o[2] = country.getRegionId().getRegionName();
             tableModel.addRow(o);
         }
         tbl_countries.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -383,12 +391,13 @@ public class CountriesView extends javax.swing.JInternalFrame {
     }
 
     private void comboboxRegions() {
-        for (models.Region r : regionController.getAll()) {
-            cmbRegion.addItem(r.getRegionId() + " - " + r.getRegionName());
+        for (Object r : regionController.getAll()) {
+            region = (Region) r;
+            cmbRegion.addItem(region.getRegionId() + " - " + region.getRegionName());
         }
     }
-
     private void bindingTabelSearch() {
+
         String search = t_search.getText();
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(
@@ -399,16 +408,16 @@ public class CountriesView extends javax.swing.JInternalFrame {
                 }
         );
 
-        for (models.Country c : countryController.search(search)) {
+        for (Object c : countryController.search("Country", title, search)) {
+            country = (Country) c;
             Object[] o = new Object[3];
-            o[0] = c.getCountryId();
-            o[1] = c.getCountryName();
-            o[2] = c.getRegionId().getRegionName();
+            o[0] = country.getCountryId();
+            o[1] = country.getCountryName();
+            o[2] = country.getRegionId().getRegionName();
             tableModel.addRow(o);
         }
         tbl_countries.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tbl_countries.setModel(tableModel);
     }
-    
 
 }

@@ -213,7 +213,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_mnJobActionPerformed
 
     private void mnLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLocationActionPerformed
-        // TODO add your handling code here:
+//         TODO add your handling code here:
         LocationsView locations = new LocationsView();
         locations.show();
         dskHR.add(locations);

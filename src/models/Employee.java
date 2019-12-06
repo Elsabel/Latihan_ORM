@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Elsa
+ * @author Demen
  */
 @Entity
 @Table(name = "EMPLOYEES")
@@ -63,11 +63,10 @@ public class Employee implements Serializable {
     @Column(name = "HIRE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date hireDate;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "SALARY")
-    private BigDecimal salary;
+    private Integer salary;
     @Column(name = "COMMISSION_PCT")
-    private BigDecimal commissionPct;
+    private Integer commissionPct;
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Department departmentId;
@@ -98,7 +97,7 @@ public class Employee implements Serializable {
 
     public Employee(int id, String firstname, String lastname, 
             String email, String phone, Date sqlStartDate, 
-            BigDecimal salary, BigDecimal commission, Employee employee, 
+            int salary, int commission, Employee employee, 
             Job job, Department department) {
         this.employeeId=id;
         this.firstName=firstname;
@@ -162,19 +161,19 @@ public class Employee implements Serializable {
         this.hireDate = hireDate;
     }
 
-    public BigDecimal getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(BigDecimal salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 
-    public BigDecimal getCommissionPct() {
+    public Integer getCommissionPct() {
         return commissionPct;
     }
 
-    public void setCommissionPct(BigDecimal commissionPct) {
+    public void setCommissionPct(Integer commissionPct) {
         this.commissionPct = commissionPct;
     }
 

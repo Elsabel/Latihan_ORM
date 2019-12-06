@@ -5,55 +5,60 @@
  */
 package controllers;
 
-import daos.RegionDao;
+import daos.GeneralDao;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import models.Region;
+import tools.HibernateUtil;
 
 /**
  *
  * @author DELL
  */
-public class RegionController {
+public class RegionController<E> {
 
-    private RegionDao dao;
+    private GeneralDao dao;
 
     public RegionController() {
-        this.dao = new RegionDao();
+        this.dao = new GeneralDao(HibernateUtil.getSessionFactory());
     }
 
-    public RegionController(RegionDao dao) {
+    public RegionController(GeneralDao dao) {
         this.dao = dao;
     }
 
-    public String create(String id, String name) {
-        return this.dao.createRegion(new Region(new BigDecimal(id), name)) ? 
-                "Success to Create Region" : "Failed to Create Region";
+    public String save(String id, String name) {
+        return this.dao.save(new Region(new BigDecimal(id), name)) ? 
+                "Success to Save Region" : "Failed to Save Region";
     }
     
-    public String update(String id, String name){
-        return this.dao.updateRegion(new Region(new BigDecimal(id), name)) ?
-                "Success to Update Region" : "Failed to Update Region";
-    }
 
     public String delete(String id){
-        return this.dao.deleteRegion(new Region(new BigDecimal(id))) ?
+        return this.dao.delete(new Region(new BigDecimal(id))) ?
                 "Success to Delete Region" : "Failed to Delete Region";
     }
     
     public List<Region> getAll(){
-     return this.dao.selectRegions();
+     return this.dao.select("Region ");
+    }
+    public List<Region> search(String field, String key){
+     return this.dao.search("Region", field, key);
     }
     
     public Region selectById(String id){
-        return this.dao.selectById(Integer.parseInt(id));       
+        return (Region) this.dao.selectByField(" Region "," regionId ", id);
+    }
+    public Region selectByName(String name){
+        return (Region) this.dao.selectByField(" Region "," regionName ", name);
     }
     
-    public Region selectByname(String name){
-        return this.dao.selectByName(name);     
-    }
-    public List<Region> search(String key){
-        return this.dao.searchRegions(key);
-    }
+//    public Region selectByname(String name){
+//        return this.dao.selectByName(name);     
+//    }
+//    public List<Region> search(String key){
+//        return this.dao.searchRegions(key);
+//    }
 
 }

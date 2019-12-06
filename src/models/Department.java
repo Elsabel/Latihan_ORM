@@ -24,7 +24,7 @@ import org.hibernate.annotations.Proxy;
 
 /**
  *
- * @author Elsa
+ * @author Demen
  */
 @Entity
 @Table(name = "DEPARTMENTS")

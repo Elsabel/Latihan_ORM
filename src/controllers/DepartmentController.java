@@ -5,66 +5,48 @@
  */
 package controllers;
 
-import daos.DepartmentDao;
+
+import daos.GeneralDao;
 import java.math.BigDecimal;
 import java.util.List;
 import models.Department;
 import models.Employee;
 import models.Location;
+import tools.HibernateUtil;
 
 /**
  *
  * @author HP
  */
-public class DepartmentController {
+public class DepartmentController <E> {
 
-    private DepartmentDao dao;
+  private GeneralDao dao;
 
     public DepartmentController() {
-        this.dao = new DepartmentDao();
+
+        this.dao = new GeneralDao(HibernateUtil.getSessionFactory());
     }
 
-    public DepartmentController(DepartmentDao dao) {
-        this.dao = dao;
+    public String save(String id, String name, String manid, String locid) {
+        return this.dao.save(new Department(new Short(id), name, new Employee(new Integer(manid)), new Location(new BigDecimal(locid))))
+                ? "Success to Save Department" : "Failed to Save Department";
     }
 
-    public String create(String id, String name, String manid, String locid) {
-        return this.dao.createDepartment(new Department(new Short(id), name, new Employee(new Integer(manid)), new Location(new BigDecimal(locid))))
-                ? "Success to Create Department" : "Failed to Create Department";
-    }
-
-    public String update(String id, String name, String manid, String locid) {
-        return this.dao.updateDepartment(new Department(new Short(id), name, new Employee(new Integer(manid)), new Location(new BigDecimal(locid))))
-                ? "Success to Update Department" : "Failed to Update Department";
-    }
-
+//
     public String delete(String id) {
-        return this.dao.deleteDepartment(new Department(new Short(id)))
+        return this.dao.delete(new Department(id))
                 ? "Success to Delete Department" : "Failed to Delete Department";
-
     }
 
     public List<Department> getAll() {
-
-        return this.dao.selectDepartments();
+        return this.dao.select("Department");
     }
 
-    public Department selectById(String id) {
-
-        return this.dao.selectById(Integer.parseInt(id));
+    public List<Department> search(String cmb, String txt) {
+        return this.dao.search("Department", cmb, txt);
     }
-    
-    public Department selectByName(String name) {
-        return this.dao.selectByName(name);
+     public Department selectByName( String lname) {
+        return (Department) this.dao.selectByField("Department", "departmentName", lname);
     }
-    
-    public List<Department> selectByNames(String names){
-        return this.dao.selectByNames(names);
-    }
-
-    public List<Department> search(String key) {
-
-        return this.dao.searchDepartments(key);
-    }
-
 }
+   
