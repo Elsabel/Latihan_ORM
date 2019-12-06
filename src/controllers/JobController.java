@@ -13,8 +13,9 @@ import tools.HibernateUtil;
 /**
  *
  * @author DELL
+ * @param <E>
  */
-public class JobController {
+public class JobController <E>{
 
    private GeneralDao dao;
    
@@ -46,8 +47,8 @@ public class JobController {
                 ? "Success to Save Job" : "Failed to Save Job";
     }
 
-    public String delete(String id, String name, Integer min, Integer max) {
-        return this.dao.delete(new Job(id, name, min, max))
+    public String delete(String id) {
+        return this.dao.delete(new Job(id))
                 ? "Success to Delete Job" : "Failed to Delete Job";
     }
     public List<Job> getAll() {

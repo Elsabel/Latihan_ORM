@@ -291,13 +291,10 @@ public class JobsView extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String id = txtid.getText();
-        String titlee = txttitle.getText();
-        String min = txtmin.getText();
-        String max = txtmax.getText();
         int hapus;
         hapus = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this data ? ", "Delete Data", JOptionPane.YES_NO_OPTION);
         if (hapus == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this, jobController.delete(id, max, 25, hapus));
+            JOptionPane.showMessageDialog(this, jobController.delete(id));
             bindingTabel();
             hapus();
         } else {
