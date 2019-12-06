@@ -45,14 +45,19 @@ public class GeneralDao<E> implements IDao<E> {
             session.close();
         }
         return false;
+        
+
     }
+    
+     public E save1(E entity) {
+     return Execute(entity, null, "SaveOrUpdate",null);
+     }
 
     @Override
     public boolean delete(E entity) {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            System.out.println(Object.class);
             session.delete(entity);
             transaction.commit();
             return true;
@@ -65,6 +70,10 @@ public class GeneralDao<E> implements IDao<E> {
             session.close();
         }
         return false;
+      
+    }
+    public E delete1(E entity) {
+          return Execute(entity, null, "Delete",null);
     }
 
     @Override
@@ -74,7 +83,7 @@ public class GeneralDao<E> implements IDao<E> {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             data = session
-                    .createQuery("from " + entity+" order by 1")
+                    .createQuery("from " + entity + " order by 1")
                     .list();
             transaction.commit();
         } catch (Exception e) {
@@ -86,9 +95,11 @@ public class GeneralDao<E> implements IDao<E> {
             session.close();
         }
         return data;
+   
     }
-
-  
+     public List<E> select1(String entity) {
+         return  (List<E>) Execute((E) entity, null, "Select",null);
+     }
 
     @Override
     public List<E> search(String tabel, String field, String key) {
@@ -96,10 +107,7 @@ public class GeneralDao<E> implements IDao<E> {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-//                data = session
-//                    .createQuery("from "+tabel+" where "+field + " like '%"+key+"%'").list();
-            String query = "from " + tabel + " where " + field + "  like :keys";
-            data = session.createQuery(query)
+            data = session.createQuery("from " + tabel + " where " + field + "  like :keys")
                     .setString("keys", "%" + key + "%")
                     .list();
             transaction.commit();
@@ -120,7 +128,7 @@ public class GeneralDao<E> implements IDao<E> {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            String query = "from " + tabel + " where " + field1 + "  like :keys and "+field2+" like :keyss";
+            String query = "from " + tabel + " where " + field1 + "  like :keys and " + field2 + " like :keyss";
             entity = (E) session.createQuery(query)
                     .setString("keys", fname)
                     .setString("keyss", lname)
@@ -143,8 +151,7 @@ public class GeneralDao<E> implements IDao<E> {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            String query = "from " + table + " where " + field + " like :key";
-            entity = (E) session.createQuery(query)
+            entity = (E) session.createQuery("from " + table + " where " + field + " like :key")
                     .setString("key", key)
                     .uniqueResult();
             transaction.commit();
@@ -156,6 +163,40 @@ public class GeneralDao<E> implements IDao<E> {
         } finally {
             session.close();
         }
-        return entity;   }
+        return entity;
+    }
+
+    public E Execute(E entity, String query, String fungsi,  List<E> data ) {
+      
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            if (fungsi.equals("SaveOrUpdate")) {
+                session.saveOrUpdate(entity);
+            } else if (fungsi.equals("Delete")) {
+                session.delete(entity);
+            }
+            else if(fungsi.equals("Select")){
+             data= new ArrayList<>();
+                data = session
+                    .createQuery("from " + entity + " order by 1")
+                    .list();
+            }
+            else if(fungsi.equals("Search")){
+                
+            }
+
+            transaction.commit();
+           // return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return entity;
+    }
 
 }

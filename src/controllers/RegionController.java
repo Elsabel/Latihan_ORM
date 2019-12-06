@@ -30,18 +30,26 @@ public class RegionController<E> {
     }
 
     public String save(String id, String name) {
-        return this.dao.save(new Region(new BigDecimal(id), name)) ? 
-                "Success to Save Region" : "Failed to Save Region";
+      
+        dao.save1(new Region(new BigDecimal(id), name));
+        String a="Sukses";
+        return  a;
+       // return this.dao.save1(new Region(new BigDecimal(id), name)) ? 
+            //    "Success to Save Region" : "Failed to Save Region";
+       
     }
     
 
     public String delete(String id){
-        return this.dao.delete(new Region(new BigDecimal(id))) ?
-                "Success to Delete Region" : "Failed to Delete Region";
+         dao.delete1(new Region(new BigDecimal(id)));
+        String a="Sukses";
+        return  a;
+//        return this.dao.delete(new Region(new BigDecimal(id))) ?
+//                "Success to Delete Region" : "Failed to Delete Region";
     }
     
     public List<Region> getAll(){
-     return this.dao.select("Region ");
+     return this.dao.select1("Region ");
     }
     public List<Region> search(String field, String key){
      return this.dao.search("Region", field, key);
