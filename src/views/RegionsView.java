@@ -6,6 +6,7 @@
 package views;
 
 import controllers.RegionController;
+import daos.GeneralDao;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Region;
+import tools.Setting;
 //import tools.Setting;
 
 /**
@@ -21,11 +23,12 @@ import models.Region;
  */
 public class RegionsView extends javax.swing.JInternalFrame {
 
+    GeneralDao<Region> generalDao;
     /**
      * Creates new form RegionsView
      */
     RegionController regionController = new RegionController();
-    
+
     public RegionsView() {
         initComponents();
         bindingTabel();
@@ -55,6 +58,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
         lblName = new javax.swing.JLabel();
         lbl3 = new javax.swing.JLabel();
         lbl4 = new javax.swing.JLabel();
+        cmbRegion = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setClosable(true);
@@ -89,7 +93,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
             }
         });
 
-        pnlRegion.setBackground(new java.awt.Color(102, 255, 255));
+        pnlRegion.setBackground(new java.awt.Color(0, 204, 204));
         pnlRegion.setBorder(javax.swing.BorderFactory.createTitledBorder("Region Details"));
         pnlRegion.setForeground(new java.awt.Color(255, 255, 51));
         pnlRegion.setToolTipText("");
@@ -180,7 +184,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
                 .addGroup(pnlRegionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(lbl4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblId)
@@ -193,6 +197,13 @@ public class RegionsView extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26))
         );
 
+        cmbRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Name" }));
+        cmbRegion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRegionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,6 +212,8 @@ public class RegionsView extends javax.swing.JInternalFrame {
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cmbRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(btnSearch))
@@ -214,7 +227,8 @@ public class RegionsView extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
+                    .addComponent(btnSearch)
+                    .addComponent(cmbRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -226,11 +240,19 @@ public class RegionsView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        String category;
+        if (cmbRegion.getSelectedItem().equals("ID")) {
+            category = "regionId";
+        }
+        else{
+            category = "regionName";
+        }
+        
         RegionController region = new RegionController();
         List<Region> regSearch = new ArrayList<>();
         String key = txtSearch.getText();
-        regSearch = region.search(key);
+        regSearch = regionController.search("Region",category,key);
+        
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(
                 new String[]{
@@ -262,25 +284,19 @@ public class RegionsView extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(this, regDelete.delete(id));
         bindingTabel();
         txtId.setEnabled(true);
+        reset();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
-        if (!txtId.isEnabled()) {
-            JOptionPane.showMessageDialog(this, regionController.update(txtId.getText(), txtName.getText())); 
-            reset();
-            txtId.setEnabled(true);
-        } else {  
-            JOptionPane.showMessageDialog(this, regionController.create(txtId.getText(), txtName.getText()));
-            reset();
-        }
-        
+        JOptionPane.showMessageDialog(this, regionController.create(txtId.getText(), txtName.getText()));
+        reset();
+
         bindingTabel();
     }//GEN-LAST:event_btnAddActionPerformed
-    
+
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-      //  new Setting().checkLength(txtName, 5, evt, lbl4);
+         new Setting().checkAlphabet(evt);
     }//GEN-LAST:event_txtNameKeyTyped
     private void bindingTabel() {
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -289,10 +305,11 @@ public class RegionsView extends javax.swing.JInternalFrame {
                     "ID", "REGION NAME"
                 }
         );
-        for (Region r : regionController.getAll()) {
+        for (Object r : regionController.getAll()) {
+            Region region = (Region) r;
             Object[] os = new Object[2];
-            os[0] = r.getRegionId();
-            os[1] = r.getRegionName();
+            os[0] = region.getRegionId();
+            os[1] = region.getRegionName();
             tableModel.addRow(os);
         }
         tblRegion.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -300,7 +317,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
     }
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
         // TODO add your handling code here:
-       // new Setting().checkNumber(evt, lbl3);
+          new Setting().checkNumber2(evt);
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void txtIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyPressed
@@ -317,14 +334,15 @@ public class RegionsView extends javax.swing.JInternalFrame {
         txtId.setText("");
         txtName.setText("");
     }//GEN-LAST:event_txtIdMouseClicked
-    
-    
-    
-    
+
+    private void cmbRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRegionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRegionActionPerformed
+
     void reset() {
         txtId.setText("");
         txtName.setText("");
-        
+
     }
 
 
@@ -332,6 +350,7 @@ public class RegionsView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox<String> cmbRegion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

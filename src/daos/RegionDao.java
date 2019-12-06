@@ -22,144 +22,47 @@ import tools.HibernateUtil;
  */
 public class RegionDao {
 
-    private SessionFactory sessionFactory;
-    private Session session;
-    private Transaction transaction;
+   private GeneralDao settingDao;
 
     public RegionDao() {
-        this.sessionFactory = HibernateUtil.getSessionFactory();
+        this.settingDao = new GeneralDao(HibernateUtil.getSessionFactory());
     }
 
-    public boolean createRegion(Region region) {
+   
 
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            this.session.save(region);
-            this.transaction.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            this.session.close();
-        }
-        return false;
-    }
-
-    public boolean deleteRegion(Region region) {
-
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            this.session.delete(region);
-            this.transaction.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            this.session.close();
-        }
-        return false;
-    }
-
-    public boolean updateRegion(Region region) {
-
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            this.session.update(region);
-            this.transaction.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            this.session.close();
-        }
-        return false;
-    }
-
-    public List<Region> selectRegions() {
-        List<Region> regions = new ArrayList<>();
-
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region order by 1").list();
-            transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return regions;
-    }
-
-    public Region selectById(long id) {
-        Region region = new Region();
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            region = (Region) session.createQuery("from Region where regionId=" + id).uniqueResult();
-            transaction.commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return region;
-    }
-
-    public Region selectByName(String name) {
-        Region region = new Region();
-        this.session = this.sessionFactory.openSession();
-        this.transaction = this.session.beginTransaction();
-        try {
-            region = (Region) session.createQuery("from Region where regionName = '" + name + "' ").uniqueResult();
-            transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return region;
-    }
-
-    public List<Region> searchRegions(String key) {
-        List<Region> regions = new ArrayList<>();
-
-        try {
-            this.session = this.sessionFactory.openSession();
-            this.transaction = this.session.beginTransaction();
-            regions = session.createQuery("from Region where regionId like '%" + key + "%' or regionName like '%" + key + "%'").list();
-            transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            session.close();
-        }
-        return regions;
-    }
-
+//    @Override
+//    public boolean insert(Object object) {
+//       return this.settingDao.create(object);
+//    }
+//
+//    @Override
+//    public boolean update(Object object) {
+//         return this.settingDao.create(object);
+//    }
+//
+//    @Override
+//    public boolean delete(Object object) {
+//         return this.settingDao.delete(object);
+//    }
+//
+//    @Override
+//    public List<Object> select() {
+//        return this.settingDao.select("from Region order by 1");
+//    }
+//
+//    @Override
+//    public List<Object> search(String search) {
+//         return this.settingDao.search("from Region where regionId = '"+ search + "' "
+//                 + "OR regionName = '"+ search +"'");
+//    }
+//
+//    @Override
+//    public Object selectById(String id) {
+//        return this.settingDao.selectById("from Region where regionId = '"+ id +"'");
+//    }
+//
+//    @Override
+//    public Object selectByName(String name) {
+//     return this.settingDao.selectById("from Region where regionName = '"+ name +"'");
+//    }
 }

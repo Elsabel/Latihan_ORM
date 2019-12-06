@@ -5,15 +5,9 @@
  */
 package tools;
 
-import controllers.CountryController;
-import controllers.RegionController;
-import daos.RegionDao;
-import java.math.BigDecimal;
+import daos.GeneralDao;
 import java.util.List;
-import javax.swing.JOptionPane;
-import models.Country;
 import models.Region;
-import org.hibernate.Session;
 
 /**
  *
@@ -79,13 +73,11 @@ public class ManualTest {
 //        System.out.println(regionController.selectById("1").getRegionName());
 //        CountryController controller = new CountryController();
 //        System.out.println(controller.create("SD", "Meikartaulalala", "1"));
-        
 //        Region region = new Region();
-        CountryController countryController = new CountryController();
+//        CountryController countryController = new CountryController();
 //        System.out.println(countryController.create("SD", "Meikarta", "1"));
 //        System.out.println(controller.delete("SD"));
-        
-        System.out.println(countryController.selectByName("Kuwait").getCountryId());
+//        System.out.println(countryController.selectByName("Kuwait").getCountryId());
 //        List<Country> rd = new CountryController().getAll();
 //        for (Country country : rd) {
 //            System.out.println(country.getCountryId() + " " + country.getCountryName() + " " + country.getRegionId().getRegionName());
@@ -95,6 +87,19 @@ public class ManualTest {
 ////        for (Country country : rd) {
 ////            System.out.println(country.getCountryId() + " " + country.getCountryName() + " " + country.getRegionId().getRegionName());
 ////        }
+        GeneralDao dao = new GeneralDao(HibernateUtil.getSessionFactory());
+//        RegionDao regionDao = new RegionDao();
+//        Region region = new Region();
+//        region.setRegionId(new BigDecimal(10));
+//        region.setRegionName("Jafar");
+//        dao.save(region);
 
+//        int key = 1;
+//        System.out.println(regionDao.selectById("1"));
+        List<Region> rs = dao.search("a", "b", "9");
+        rs.forEach((r) -> {
+            System.out.println("ID : " + r.getRegionId()
+                    + "\nName : " + r.getRegionName());
+        });//          dao.save(new Region(new BigDecimal(18), "jafar"));
     }
 }
