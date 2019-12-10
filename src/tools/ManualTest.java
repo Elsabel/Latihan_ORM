@@ -131,16 +131,16 @@ public class ManualTest {
 //        for (Job job : jobs) {
 //            System.out.println(job.getJobId()+" "+job.getJobTitle());
 //        }
-        GeneralDao dao = new GeneralDao(HibernateUtil.getSessionFactory());
-     Region region= new Region();
-        region.setRegionId(BigDecimal.valueOf(9));
-        region.setRegionName("Pekanbaru");
-    //  System.out.println(dao.save(region));
-
-        Country country=new Country("ER", "BALIi", region);
-      //  System.out.println(dao.save(country));
-
-     Location location=new Location(BigDecimal.valueOf(21), "Tanjung Duren", "1C", "TIMUR", "JAKARTA", country);
+//        GeneralDao dao = new GeneralDao(HibernateUtil.getSessionFactory());
+//     Region region= new Region();
+//        region.setRegionId(BigDecimal.valueOf(9));
+//        region.setRegionName("Pekanbaru");
+//    //  System.out.println(dao.save(region));
+//
+//        Country country=new Country("ER", "BALIi", region);
+//      //  System.out.println(dao.save(country));
+//
+//     Location location=new Location(BigDecimal.valueOf(21), "Tanjung Duren", "1C", "TIMUR", "JAKARTA", country);
      //   System.out.println(dao.save(location));
     //    System.out.println(dao.delete(location));
 //        List<Location> l=dao.select("from Location");

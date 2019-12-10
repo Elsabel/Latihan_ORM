@@ -40,13 +40,14 @@ public class MainView extends javax.swing.JFrame {
         mnLocation = new javax.swing.JMenuItem();
         mnDepartment = new javax.swing.JMenuItem();
         mnCountry = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mnReportRegion = new javax.swing.JMenuItem();
         mnReportEmployee = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         mnReportLocation = new javax.swing.JMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HR SYSTEM");
@@ -78,6 +79,7 @@ public class MainView extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         mnRegion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        mnRegion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/internet.png"))); // NOI18N
         mnRegion.setText("Region");
         mnRegion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +89,7 @@ public class MainView extends javax.swing.JFrame {
         jMenu1.add(mnRegion);
 
         mnEmployee.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        mnEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/employee.png"))); // NOI18N
         mnEmployee.setText("Employee");
         mnEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +99,7 @@ public class MainView extends javax.swing.JFrame {
         jMenu1.add(mnEmployee);
 
         mnJob.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        mnJob.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/bag.png"))); // NOI18N
         mnJob.setText("Job");
         mnJob.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +109,7 @@ public class MainView extends javax.swing.JFrame {
         jMenu1.add(mnJob);
 
         mnLocation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        mnLocation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/location.png"))); // NOI18N
         mnLocation.setText("Location");
         mnLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +119,7 @@ public class MainView extends javax.swing.JFrame {
         jMenu1.add(mnLocation);
 
         mnDepartment.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        mnDepartment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/department.png"))); // NOI18N
         mnDepartment.setText("Department");
         mnDepartment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +129,7 @@ public class MainView extends javax.swing.JFrame {
         jMenu1.add(mnDepartment);
 
         mnCountry.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        mnCountry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/flag.png"))); // NOI18N
         mnCountry.setText("Country");
         mnCountry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,10 +138,20 @@ public class MainView extends javax.swing.JFrame {
         });
         jMenu1.add(mnCountry);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/back-arrow.png"))); // NOI18N
+        jMenuItem3.setText("Log out");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Report");
 
+        mnReportRegion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/internet.png"))); // NOI18N
         mnReportRegion.setText("Region");
         mnReportRegion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +160,7 @@ public class MainView extends javax.swing.JFrame {
         });
         jMenu2.add(mnReportRegion);
 
+        mnReportEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/employee.png"))); // NOI18N
         mnReportEmployee.setText("Employee");
         mnReportEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +169,7 @@ public class MainView extends javax.swing.JFrame {
         });
         jMenu2.add(mnReportEmployee);
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/bag.png"))); // NOI18N
         jMenuItem1.setText("Job");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +178,7 @@ public class MainView extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/department.png"))); // NOI18N
         jMenuItem2.setText("Department");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,6 +187,7 @@ public class MainView extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem2);
 
+        mnReportLocation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/location.png"))); // NOI18N
         mnReportLocation.setText("Location");
         mnReportLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,14 +196,14 @@ public class MainView extends javax.swing.JFrame {
         });
         jMenu2.add(mnReportLocation);
 
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("Country");
-        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/flag.png"))); // NOI18N
+        jMenuItem4.setText("Country");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxMenuItem1ActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu2.add(jCheckBoxMenuItem1);
+        jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
 
@@ -190,13 +211,6 @@ public class MainView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mnRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRegionActionPerformed
-
-        RegionsView regionsView = new RegionsView();
-        regionsView.show();
-        dskHR.add(regionsView);
-    }//GEN-LAST:event_mnRegionActionPerformed
 
     private void mnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEmployeeActionPerformed
 
@@ -267,12 +281,22 @@ public class MainView extends javax.swing.JFrame {
         dskHR.add(reportView);
     }//GEN-LAST:event_mnReportLocationActionPerformed
 
-    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        ReportView reportView = new ReportView("Country");
+    private void mnRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRegionActionPerformed
+
+        RegionsView regionsView = new RegionsView();
+        regionsView.show();
+        dskHR.add(regionsView);
+    }//GEN-LAST:event_mnRegionActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+         System.exit(0);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+         ReportView reportView = new ReportView("Country");
         reportView.show();
         dskHR.add(reportView);
-    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,13 +336,14 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dskHR;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem mnCountry;
     private javax.swing.JMenuItem mnDepartment;
     private javax.swing.JMenuItem mnEmployee;

@@ -39,6 +39,14 @@ public class Setting {
             JOptionPane.showMessageDialog(null, "Tidak Boleh Angka");
         }
     }
+    public void checkKombinasi(KeyEvent evt, JLabel lbl) {
+        if ((Character.isAlphabetic(evt.getKeyChar()))&&Character.isDigit(0)) {
+            evt.consume();
+            lbl.setText("Password kombinasi huruf dan angka");
+        } else {
+            lbl.setText("");
+        }
+    }
 
     public void checkLength(JTextField txt, int size, KeyEvent evt, JLabel lbl) {
         if (txt.getText().length() >= size) {

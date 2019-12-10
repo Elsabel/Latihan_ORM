@@ -98,22 +98,26 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
         });
 
         btnSearch.setBackground(new java.awt.Color(255, 255, 255));
-        btnSearch.setText("Search");
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/loupe.png"))); // NOI18N
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Department Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(118, 93, 105));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Department Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 13), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        labelID.setForeground(new java.awt.Color(255, 255, 255));
         labelID.setText("ID");
 
+        labelName.setForeground(new java.awt.Color(255, 255, 255));
         labelName.setText("Department");
 
+        labelManager.setForeground(new java.awt.Color(255, 255, 255));
         labelManager.setText("Manager");
 
+        labelLocation.setForeground(new java.awt.Color(255, 255, 255));
         labelLocation.setText("Location");
 
         txtId.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,7 +131,8 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnDelete.setBackground(new java.awt.Color(255, 255, 255));
+        btnDelete.setBackground(new java.awt.Color(255, 102, 102));
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/delete.png"))); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +140,8 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSave.setBackground(new java.awt.Color(255, 255, 255));
+        btnSave.setBackground(new java.awt.Color(0, 204, 204));
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/save.png"))); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,7 +237,7 @@ public class DepartmentsView extends javax.swing.JInternalFrame {
                     .addComponent(cmbSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

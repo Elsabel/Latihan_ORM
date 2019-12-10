@@ -198,5 +198,55 @@ public class GeneralDao<E> implements IDao<E> {
         }
         return entity;
     }
+    public Object getNewId(String table, String field) {
+        return execute(null, null, "Max", table, field, null, null, null);
+
+    }
+
+    public E execute(E entity, String query, String fungsi, String tabel, String field, String key, String field2, String key2) {
+
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            if (fungsi.equals("SaveOrUpdate")) {
+                session.saveOrUpdate(entity);
+            } else if (fungsi.equals("Delete")) {
+                session.delete(entity);
+            } else if (fungsi.equals("Select")) {
+                return (E) session
+                        .createQuery("from " + entity + " order by 1")
+                        .list();
+            } else if (fungsi.equals("Search")) {
+                return (E) session.createQuery("from " + tabel + " where " + field + "  like :keys")
+                        .setString("keys", "%" + key + "%")
+                        .list();
+            } else if ((fungsi.equals("SelectByField"))) {
+                return (E) session.createQuery("from " + tabel + " where " + field + " like :key")
+                        .setString("key", key)
+                        .uniqueResult();
+            } else if ((fungsi.equals("Max"))) {
+                 return (E) session.createQuery("select max("+field+") from "+tabel+"").uniqueResult()
+                       ;
+
+            } else if ((fungsi.equals("SelectByField2"))) {
+                return (E) session.createQuery("from " + tabel + " where " + field + "  like :key and " + field2 + " like :keys")
+                        .setString("key", key)
+                        .setString("keys", key2)
+                        .uniqueResult();
+            }
+
+            transaction.commit();
+            // return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return entity;
+    }
+
 
 }

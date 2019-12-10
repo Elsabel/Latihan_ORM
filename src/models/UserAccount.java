@@ -55,6 +55,7 @@ public class UserAccount implements Serializable {
         this.username = username;
         this.password = password;
     }
+    
 
     public Integer getId() {
         return id;

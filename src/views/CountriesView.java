@@ -67,9 +67,10 @@ public class CountriesView extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Country Details"));
+        jPanel1.setBackground(new java.awt.Color(118, 93, 105));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Country Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 13), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ID");
 
         tid.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -83,6 +84,7 @@ public class CountriesView extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name");
 
         tname.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -91,15 +93,20 @@ public class CountriesView extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Region");
 
-        bt_add1.setText("SAVE");
+        bt_add1.setBackground(new java.awt.Color(0, 204, 255));
+        bt_add1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/save.png"))); // NOI18N
+        bt_add1.setText("Save");
         bt_add1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_add1ActionPerformed(evt);
             }
         });
 
+        bt_delete1.setBackground(new java.awt.Color(255, 102, 102));
+        bt_delete1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/delete.png"))); // NOI18N
         bt_delete1.setText("Delete");
         bt_delete1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +192,8 @@ public class CountriesView extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("SEARCH");
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/loupe.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

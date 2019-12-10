@@ -49,7 +49,7 @@ public class RegionController<E> {
     }
     
     public List<Region> getAll(){
-     return this.dao.select1("Region ");
+     return this.dao.select("Region");
     }
     public List<Region> search(String field, String key){
      return this.dao.search("Region", field, key);
