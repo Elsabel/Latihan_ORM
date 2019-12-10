@@ -18,12 +18,12 @@ import tools.HibernateUtil;
  *
  * @author Elsa
  */
-public class Register extends javax.swing.JFrame {
+public class RegisterView extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Register() {
+    public RegisterView() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -136,6 +136,9 @@ public class Register extends javax.swing.JFrame {
         txtUsernm.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtUsernmKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsernmKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtUsernmKeyTyped(evt);
@@ -328,6 +331,11 @@ public class Register extends javax.swing.JFrame {
             lblpass.setText("Password strength is very strong");
         }
     }//GEN-LAST:event_txtPasswordKeyTyped
+
+    private void txtUsernmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernmKeyReleased
+      if(evt.getKeyCode() == 10)
+            txtPassword.requestFocus();
+    }//GEN-LAST:event_txtUsernmKeyReleased
 
     /**
      * @param args the command line arguments

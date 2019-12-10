@@ -308,7 +308,7 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-       Register view=new Register();
+       RegisterView view=new RegisterView();
        view.show();
        this.dispose();
                
